@@ -27,3 +27,11 @@ class Publication(models.Model):
     publication_date= models.DateField()
     publication_url = models.URLField()
     publication_description = models.TextField()
+
+class Project(models.Model):
+    project_title = models.CharField(max_length=200)
+    project_description = models.TextField()
+    project_url = models.URLField()
+    project_photo = models.ImageField(upload_to='pics')
+    project_start_year = models.CharField(max_length=4)
+    project_end_year =models.CharField(max_length=4)
