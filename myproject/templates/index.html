@@ -39,7 +39,6 @@
 	          <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
 	          <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
 	          <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
-	          <li class="nav-item"><a href="#blog-section" class="nav-link"><span>My Blog</span></a></li>
 	          <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
 	        </ul>
 	      </div>
@@ -273,8 +272,7 @@
     				<div action="getInfo" class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({{project.project_photo.url}});">
     					<div class="overlay"></div>
 	    				<div class="text text-center p-4">
-								<h3><a href="/getprojectinfo/?{{project.id}}">{{project.project_title}}</a></h3>
-							
+							<h3><a href="{%url 'projects'%}">{{project.project_title}}</a></h3>
 	    					<span>{{project.project_description}}</span>
 	    				</div>
 					</div>
