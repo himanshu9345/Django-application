@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -109,6 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
