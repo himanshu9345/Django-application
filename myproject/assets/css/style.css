@@ -6714,6 +6714,10 @@ button.bg-dark:focus {
 .px-2 {
   padding-left: 0.5rem !important; }
 
+
+.p-3{
+  text-align: justify;
+}
 .p-3 {
   padding: 1rem !important; }
 
@@ -8555,6 +8559,10 @@ h1, h2, h3, h4, h5,
     -webkit-box-shadow: 0 0 0 0 rgba(62, 100, 255, 0);
     box-shadow: 0 0 0 0 rgba(62, 100, 255, 0); } }
 
+
+p.to-justify-text{
+  text-align: justify;
+}
 .bg-light {
   background: #f8f9fa !important; }
 

@@ -53,7 +53,7 @@
           	<div class="text text-center">
           		<span class="subheading">Hey! I am</span>
 		  				<h1>Himanshu Patel</h1>
-			  				<h2>I'm a intrested in
+			  				<h2>I'm intrested in
 								  <span
 								     class="txt-rotate"
 								     data-period="2000"
@@ -89,8 +89,9 @@
 		            <ul class="about-info mt-4 px-md-0 px-2">
 		            	<li class="d-flex"><span>Name:</span> <span>Himanshu Patel</span></li>
 		            	<li class="d-flex"><span>Address:</span> <span>Jersey City, NJ</span></li>
-		            	<li class="d-flex"><span>Zip code:</span> <span>07306</span></li>
-		            	<li class="d-flex"><span>Email:</span> <span>hbp53@njit.edu</span></li>
+						<li class="d-flex"><span>Email:</span> <span>hbp53@njit.edu</span></li>
+		            	<!-- <li class="d-flex"><span>Hobbies:</span><span></span></li> -->
+						
 		            </ul>
 		          </div>
 		        </div>
@@ -98,7 +99,7 @@
               <div class="text">
               	<p class="mb-4">
 	                <span class="number" data-number="17">0</span>
-	                <span>Project complete</span>
+	                <span>Project completed</span>
                 </p>
                 <p><a href="{% static 'Resume/Resume_Himanshu_Patel.pdf' %}" class="btn btn-primary py-3 px-3">Download CV</a></p>
               </div>
@@ -165,7 +166,7 @@
 					    	<div class="text pl-3">
 		    					<span class="date">2013-2017</span>
 		    					<h2>Bachelor of Technology in Information and Communication Technology</h2>
-		    					<span class="position">DA-IICT</span>
+		    					<span class="position">Dhirubhai Ambani Institute of Information and Communication Technology</span>
 		    				</div>
 	    				</div>
 					  </div>
@@ -183,7 +184,7 @@
 		    					<h2>{{experience.position}}</h2>
 		    					<span class="position">{{experience.company}}</span>
 								{%for dec in experience.split_lines%}
-									<li>{{dec}}</li>
+									<li style="text-align: justify;">{{dec}}</li>
 								{%endfor%}
 		    				</div>
 						</div>
@@ -223,7 +224,7 @@
 		    					<span class="date">{{award.award_year}}</span>
 		    					<h2>{{award.award_name}}</h2>
 		    					<span class="position">{{award.award_place}}</span>
-		    					<p>{{award.describe_award}}</p>
+		    					<p  style="text-align: justify;">{{award.describe_award}}</p>
 	    					</div>
 						</div>
 						{%endfor%}
@@ -241,7 +242,7 @@
 		    					<span class="date">{{publication.publication_date}}</span>
 		    					<h2>{{publication.publication_title}}</h2>
 		    					<span class="position"><i>{{publication.publication_name}}</i></span>
-		    					<p>{{publication.publication_description}}</p>
+		    					<p style="text-align: justify;">{{publication.publication_description}}</p>
 	    					</div>
 						</div>
 						{%endfor%}
@@ -396,7 +397,7 @@
           </div> -->
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<h2 class="ftco-heading-2">Have Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
 	                
