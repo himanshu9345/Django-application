@@ -269,15 +269,17 @@
         </div>
     		<div class="row no-gutters">
 				{% for project in projects %}
-    			<div class="col-md-4">
-					
+
+				<div class="col-md-4" >
+					<a  href="{%url 'projects'%}">
     				<div action="getInfo" class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({{project.project_photo.url}});">
     					<div class="overlay"></div>
 	    				<div class="text text-center p-4">
-							<h3><a href="{%url 'projects'%}">{{project.project_title}}</a></h3>
+							<h3>{{project.project_title}}</h3>
 	    					<span>{{project.project_description}}</span>
 	    				</div>
 					</div>
+				</a>
 				  </div>
 				  {%endfor%}
     		</div>
@@ -405,11 +407,21 @@
 	              </ul>
 	            </div>
             </div>
-          </div>
+		  </div>
+		  <div class="col-md">
+			<div class="ftco-footer-widget mb-4">
+				<h2 class="ftco-heading-2">Visitor Count</h2>
+				<div class="block-23 mb-3">
+				
+				<a href="https://www.freecounterstat.com" title="website counter"><img src="https://counter10.stat.ovh/private/freecounterstat.php?c=y63137xtxqcrzmw9z37knl2a2gqda9br" border="0" title="website counter" alt="website counter"></a>
+				</div>
+			</div>
+		</div>
+			
         </div>
         <div class="row">
           <div class="col-md-12 text-center">
-
+			
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
