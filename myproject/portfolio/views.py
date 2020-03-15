@@ -15,7 +15,8 @@ def index(request):
 
 def projects(request):
     app_url = "/"
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('-project_end_year')
+
     print(app_url,"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
     return render(request,"projects.html",{'app_url': app_url,'projects':projects})
 

@@ -263,15 +263,14 @@
     		<div class="row no-gutters justify-content-center pb-5">
           <div class="col-md-12 heading-section text-center ftco-animate">
           	<h1 class="big big-2">Projects</h1>
-            <h2 class="mb-4">My Projects</h2>
-            <p>My Projects</p>
+            <!-- <p>My Projects</p> -->
           </div>
         </div>
     		<div class="row no-gutters">
 				{% for project in projects %}
-
+					
 				<div class="col-md-4" >
-					<a  href="{%url 'projects'%}">
+					<a  href="{%url 'projects'%}#{{project.id}}">
     				<div action="getInfo" class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({{project.project_photo.url}});">
     					<div class="overlay"></div>
 	    				<div class="text text-center p-4">
@@ -378,10 +377,12 @@
             <div class="ftco-footer-widget mb-4 ml-md-4">
               <h2 class="ftco-heading-2">Links</h2>
               <ul class="list-unstyled">
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>About</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Projects</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
+                <li><a href="#home-section"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
+				<li><a href="#about-section"><span class="icon-long-arrow-right mr-2"></span>About</a></li>
+				<li><a href="#resume-section"><span class="icon-long-arrow-right mr-2"></span>Resume</a></li>
+				<li><a href="#projects-section"><span class="icon-long-arrow-right mr-2"></span>Projects</a></li>
+				<li><a href="#contact-section"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
+				
               </ul>
             </div>
           </div>
