@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+	
   <head>
     <title>Himanshu Portfolio</title>
 	<meta charset="utf-8">
@@ -22,11 +23,13 @@
     
     <link rel="stylesheet" href="{% static 'css/flaticon.css'%}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css'%}">
-    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css'%}">
   </head>
+  
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-	  
-	  
+	
+	
+	
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
 	    <div class="container">
 	      <!-- <a class="navbar-brand" href="index.html"><span>R</span>onaldo</a> -->
@@ -70,7 +73,11 @@
 				</a>
 			</div>
     </section>
-
+	
+	
+	<!-- <script>
+		myFun();
+	</script> -->
     <section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
     	<div class="container">
     		<div class="row d-flex no-gutters">
@@ -130,8 +137,9 @@
     		</div>
     	</div>
     </section> -->
-
+	
     <section class="ftco-section ftco-no-pb goto-here" id="resume-section">
+		
     	<div class="container">
     		<div class="row">
     			<div class="col-md-3">
@@ -164,7 +172,7 @@
 					    		<span class="flaticon-ideas"></span>
 					    	</div>
 					    	<div class="text pl-3">
-		    					<span class="date">2013-2017</span>
+								<span class="date">2013-2017</span>
 		    					<h2>Bachelor of Technology in Information and Communication Technology</h2>
 		    					<span class="position">Dhirubhai Ambani Institute of Information and Communication Technology</span>
 		    				</div>
@@ -254,8 +262,21 @@
 			  </div>
     	</div>
     </section>
-
-  
+<!-- 
+	<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+		  <img src="" class="rounded mr-2" alt="">
+		  <strong class="mr-auto">Bootstrap</strong>
+		  <small>11 mins ago</small>
+		  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="toast-body">
+		  Hello, world! This is a toast message.
+		</div>
+	  </div> -->
+	  
  
 
     <section class="ftco-section ftco-project" id="projects-section">
@@ -333,19 +354,19 @@
 				{% csrf_token %}
 
               <div class="form-group">
-                <input type="text" name="person_name" class="form-control" placeholder="Your Name">
+                <input type="text" name="person_name" class="form-control" placeholder="Your Name" required>
               </div>
               <div class="form-group">
-                <input type="text" name="email" class="form-control" placeholder="Your Email">
+                <input type="text" name="email" class="form-control" placeholder="Your Email" required>
               </div>
               <div class="form-group">
-                <input type="text" name="email_subject" class="form-control" placeholder="Subject">
+                <input type="text" name="email_subject" class="form-control" placeholder="Subject" required>
               </div>
               <div class="form-group">
-                <textarea  id="" name="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                <textarea  id="" name="message" cols="30" rows="7" class="form-control" placeholder="Message" required></textarea>
               </div>
               <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+				<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5" onclick="myFun()">
               </div>
             </form>
           
@@ -393,7 +414,6 @@
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Design</a></li>
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Development</a></li>
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Business Strategy</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Data Analysis</a></li>
                 <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Graphic Design</a></li>
               </ul>
             </div>
@@ -437,7 +457,7 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="{% static 'js/jquery.min.js'%}"></script>
+  <script src="{% static 'js/jquery.min.js'%}"> </script>
   <script src="{% static 'js/jquery-migrate-3.0.1.min.js'%}"></script>
   <script src="{% static 'js/popper.min.js'%}"></script>
   <script src="{% static 'js/bootstrap.min.js'%}"></script>
@@ -449,7 +469,6 @@
   <script src="{% static 'js/aos.js'%}"></script>
   <script src="{% static 'js/jquery.animateNumber.min.js'%}"></script>
   <script src="{% static 'js/scrollax.min.js'%}"></script>
-  
   <script src="{% static 'js/main.js'%}"></script>
     
   </body>
