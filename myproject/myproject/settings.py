@@ -26,6 +26,9 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if os.getenv('MODE')=='PROD':
+    DEBUG = False
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -129,12 +132,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,"static"),
-    os.path.join(BASE_DIR,"travello_assets")
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR,"static"),
+#     os.path.join(BASE_DIR,"travello_assets")
 
-]
+# ]
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT=""
+if DEBUG==True:
+    MEDIA_ROOT = '/home/himanshu/extra/media'
+else:
+    MEDIA_ROOT = '/home/ubuntu/extra/media'

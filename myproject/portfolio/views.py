@@ -72,7 +72,7 @@ def sendemail(request):
             print(e)
             print("nope")
 
-        return render(request,'index.html')
+        return redirect('index')
     else:
         
-        return render(request,'index.html')
+        return redirect('index')
