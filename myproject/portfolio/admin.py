@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Experience,Skill,Award,Publication,Project
+from .models import Experience,Skill,Award,Publication,Project,Education
 # Register your models here.
 
 
@@ -18,8 +18,12 @@ class PublicationAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = [field.attname for field in Project._meta.fields]
 
+class EducationAdmin(admin.ModelAdmin):
+    list_display = [field.attname for field in Education._meta.fields]
+
 admin.site.register(Experience,ExperienceAdmin)
 admin.site.register(Skill,SkillAdmin)
 admin.site.register(Award,AwardAdmin)
 admin.site.register(Publication,PublicationAdmin)
 admin.site.register(Project,ProjectAdmin)
+admin.site.register(Education,EducationAdmin)
