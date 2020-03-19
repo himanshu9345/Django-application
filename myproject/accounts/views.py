@@ -26,7 +26,7 @@ def register(request):
                 return redirect('login')
 
         else:
-            messages.info(request,"password dont match")
+            messages.info(request,"Password dont match")
             return redirect('register')
 
 
@@ -44,11 +44,11 @@ def login(request):
             auth.login(request,user)
             return redirect("/travel")
         else:
-            messages.info(request,"invalid credentials")
+            messages.info(request,"Invalid Credentials")
             return redirect('login')
     else:
         return render(request,'login.html')
 
 def logout(request):
     auth.logout(request)
-    return redirect('/travel')
+    return render(request,'logout.html')
