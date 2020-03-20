@@ -17,7 +17,7 @@ def showEditableProfile(request):
     user_extra_details=UserExtraDetails.objects.get(user_id=current_user_id)
 
     print(user_extra_details)
-    user_details_form=UserForm(initial={'user_intrest':user_extra_details.user_intrest,})
+    user_details_form=UserForm()
     
     return render(request,"profile.html",{'user_details_form':user_details_form})
     return render(request,"profile.html")
