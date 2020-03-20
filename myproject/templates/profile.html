@@ -30,7 +30,7 @@
                 <h1 class="big big-2">Profile</h1>
                 <h2 class="mb-4">User Details</h2>
             </div>
-            <form class="bg-light p-6 p-md-5 contact-form">
+            <form action="" method="post" class="bg-light p-6 p-md-5 contact-form">
                 {% csrf_token %}
       
               <div class="form-group"  >
@@ -52,9 +52,20 @@
                 <label for="email">Email</label>
                    <input type="email" readonly="readonly" name="email" id="email" class="form-control" onclick="myFunction('email')" required>
               </div>
-              
+              <div class="form-group fieldWrapper">
+                <label for={{user_details_form.user_interest.id_for_label}}>User Interest</label>
+                {{user_details_form.user_interest}}
+              </div>
+              <div class="form-group fieldWrapper">
+                <label for={{user_details_form.user_address.id_for_label}}>User address</label>
+                {{user_details_form.user_address}}
+              </div>
+              <div class="form-group fieldWrapper">
+                <label for={{user_details_form.user_project_completed.id_for_label}}>User projects completed</label>
+                {{user_details_form.user_project_completed}}
+              </div>
               <div class="form-group" style="text-align: center;">
-                <input type="submit" value="Edit" class="btn btn-primary py-3 px-5 button-class" >
+                <input type="submit" value="Save" class="btn btn-primary py-3 px-5 button-class" >
               </div>
               <div>
                   {%for message in messages%}

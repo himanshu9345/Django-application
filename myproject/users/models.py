@@ -83,7 +83,7 @@ class UserExtraDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image_path = time.strftime('profile/%Y/%m/%d')
     user_image = models.ImageField(upload_to=PathAndRename(image_path),default="default.png")
-    user_intrest = models.CharField(max_length=400,default="")
+    user_interest = models.CharField(max_length=400,default="")
     user_address = models.CharField(max_length=200,default="")
     image_path = time.strftime('files/%Y/%m/%d')
     user_resume = models.FileField(upload_to=PathAndRename(image_path),default="resume.pdf")
