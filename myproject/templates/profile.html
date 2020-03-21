@@ -33,24 +33,22 @@
             <form action="" method="post" class="bg-light p-6 p-md-5 contact-form">
                 {% csrf_token %}
       
-              <div class="form-group"  >
-                <label for="fname">First name</label>
-                  <input type="text" readonly="readonly" name="first_name" class="form-control" id="fname" onclick="myFunction('fname')" required>
+              
+              <div class="form-group fieldWrapper">
+                <label for={{user_info_form.first_name.id_for_label}}>First Name</label>
+                {{user_info_form.first_name}}
               </div>
-              <div class="form-group"  >
-                <label for="lname">Last name</label>
-
-                  <input type="text" readonly="readonly" id="lname" name="last_name" class="form-control" onclick="myFunction('lname')" required >
-      
+              <div class="form-group fieldWrapper">
+                <label for={{user_info_form.last_name.id_for_label}}>Last Name</label>
+                {{user_info_form.last_name}}
               </div>
-              <div class="form-group">
-                <label for="username">Username</label>
-
-                  <input type="text" readonly="readonly" name="username" id ="username" class="form-control" onclick="myFunction('username')" required>
+              <div class="form-group fieldWrapper">
+                <label for={{user_info_form.username.id_for_label}}>Username</label>
+                {{user_info_form.username}}
               </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                   <input type="email" readonly="readonly" name="email" id="email" class="form-control" onclick="myFunction('email')" required>
+              <div class="form-group fieldWrapper">
+                <label for={{user_info_form.email.id_for_label}}>Email</label>
+                {{user_info_form.email}}
               </div>
               <div class="form-group fieldWrapper">
                 <label for={{user_details_form.user_interest.id_for_label}}>User Interest</label>
@@ -64,8 +62,8 @@
                 <label for={{user_details_form.user_project_completed.id_for_label}}>User projects completed</label>
                 {{user_details_form.user_project_completed}}
               </div>
-              <div class="form-group" style="text-align: center;">
-                <input type="submit" value="Save" class="btn btn-primary py-3 px-5 button-class" >
+              <div class="form-group" style="text-align: center;" >
+                <input type="submit" value="Save" class="btn btn-primary py-3 px-5 button-class" style="display: none;" id="save-button">
               </div>
               <div>
                   {%for message in messages%}
@@ -78,10 +76,52 @@
     </div>
 </section>
 <script >
-    function myFunction(id) {
-        var x = document.getElementById(id);
-        document.getElementById(id).readOnly = false;
+  let anyThingChanged=new Map();
+    function myFunction() {
+        var x = document.getElementById(event.toElement.id);
+        document.getElementById(event.toElement.id).readOnly = false;
        
       }
+    
+      function checkDictTrue(map){
+        for (let v of map.values()) {
+          if (v === true) { 
+            return true; 
+          }
+        }  
+        return false;
+
+      }
+    function checkInputChanged(id){
+
+      var name = id;
+
+        if (name.value != name.defaultValue){
+            anyThingChanged.set(name.id,true);
+            showButton();
+        }
+        else{
+          anyThingChanged.set(name.id,false);
+
+        }
+        if (checkDictTrue(anyThingChanged)===false){
+          hideButton();
+        }
+       
+        
+    }
+
+    function showButton(){
+      var x = document.getElementById("save-button");
+      x.style.display = "block";
+
+    }
+
+    function hideButton(){
+      var x = document.getElementById("save-button");
+      x.style.display = "none";
+
+    }
+    
 </script>
 {% endblock %}
