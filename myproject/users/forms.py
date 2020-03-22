@@ -8,20 +8,23 @@ class UserExtraDetailsForm(ModelForm):
     
     class Meta:
         model=UserExtraDetails
-        exclude=('user','user_image','user_resume')
+        fields=('user_interest','user_address','user_project_completed','user_image','user_resume')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['user_interest'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_user_interest)'})
         self.fields['user_address'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_user_address)'})
         self.fields['user_project_completed'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_user_project_completed)'})
+        self.fields['user_image'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_user_image)'})
+        self.fields['user_resume'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_user_resume)'})
 
-    def save(self, user,id):
-        obj = super().save(commit = False)
-        obj.user = user
-        obj.id=id
-        obj.save()
-        return obj
+
+    # def save(self, user,profile):
+    #     obj = super(UserExtraDetailsForm,self).save(commit = False)
+    #     obj.user = user
+    #     obj.id=profile.id
+    #     # obj.save()
+    #     return obj
 
 class UserForm(UserChangeForm):
     class Meta:
@@ -30,7 +33,6 @@ class UserForm(UserChangeForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.fields['first_name'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_first_name)'})
         self.fields['last_name'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_last_name)'})
         self.fields['username'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_username)'})

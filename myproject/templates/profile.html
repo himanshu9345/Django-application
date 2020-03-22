@@ -24,55 +24,116 @@
 </nav>
 
 <section class="ftco-section" >
-    <div class="container-fluid px-md-0">
-        <div class="row no-gutters justify-content-center pb-5">
+
+    <div class="container-fluid px-md-5">
+      <div class="row">
+        <div class="col no-gutters justify-content-center pb-2">
+          
             <div class="col-md-12 heading-section text-center">
                 <h1 class="big big-2">Profile</h1>
-                <h2 class="mb-4">User Details</h2>
-            </div>
-            <form action="" method="post" class="bg-light p-6 p-md-5 contact-form">
-                {% csrf_token %}
-      
-              
-              <div class="form-group fieldWrapper">
-                <label for={{user_info_form.first_name.id_for_label}}>First Name</label>
-                {{user_info_form.first_name}}
-              </div>
-              <div class="form-group fieldWrapper">
-                <label for={{user_info_form.last_name.id_for_label}}>Last Name</label>
-                {{user_info_form.last_name}}
-              </div>
-              <div class="form-group fieldWrapper">
-                <label for={{user_info_form.username.id_for_label}}>Username</label>
-                {{user_info_form.username}}
-              </div>
-              <div class="form-group fieldWrapper">
-                <label for={{user_info_form.email.id_for_label}}>Email</label>
-                {{user_info_form.email}}
-              </div>
-              <div class="form-group fieldWrapper">
-                <label for={{user_details_form.user_interest.id_for_label}}>User Interest</label>
-                {{user_details_form.user_interest}}
-              </div>
-              <div class="form-group fieldWrapper">
-                <label for={{user_details_form.user_address.id_for_label}}>User address</label>
-                {{user_details_form.user_address}}
-              </div>
-              <div class="form-group fieldWrapper">
-                <label for={{user_details_form.user_project_completed.id_for_label}}>User projects completed</label>
-                {{user_details_form.user_project_completed}}
-              </div>
-              <div class="form-group" style="text-align: center;" >
-                <input type="submit" value="Save" class="btn btn-primary py-3 px-5 button-class" style="display: none;" id="save-button">
-              </div>
-              <div>
-                  {%for message in messages%}
-              <h4> {{message}} </h4>
-              {%endfor%}
+                <h2 class="mb-4">User Photo</h2>
+            </div >
+            <div class="col" style="text-align: center;" >
+            <img src="{{user_details_form.user_image.value.url}}"  style="width:256px;height:256px;" alt="Italian Trulli">
           </div>
-            </form>
+          <div class="col no-gutters justify-content-center pb-2">
+            <div class="col-md-12 heading-section text-center">
+                <h1 class="big big-2">Profile</h1>
+                <h2 class="mb-4">User Resume</h2>
+            </div>
+            <div class="col" style="text-align: center;">
+            <p>Please check your resume <a target="_blank" href="{{user_details_form.user_resume.value.url}}">here</a>.</p>
+            </div>
+            
+    
+        </div>
+
 
         </div>
+        <div class="col no-gutters justify-content-center pb-2">
+          
+          <div class="col-md-12 heading-section text-center">
+              <h1 class="big big-2">Profile</h1>
+              <h2 class="mb-4">User Details</h2>
+          </div>
+          <form action="" method="post" enctype="multipart/form-data" class="bg-light p-6 p-md-5 contact-form">
+              {% csrf_token %}
+    
+              
+            <div class="form-group fieldWrapper">
+              <label for={{user_info_form.first_name.id_for_label}}>First Name</label>
+              {{user_info_form.first_name}}
+            </div>
+            <div class="form-group fieldWrapper">
+              <label for={{user_info_form.last_name.id_for_label}}>Last Name</label>
+              {{user_info_form.last_name}}
+            </div>
+            <div class="form-group fieldWrapper">
+              <label for={{user_info_form.username.id_for_label}}>Username</label>
+              {{user_info_form.username}}
+            </div>
+            <div style="form-group fieldWrapper">
+              <label for={{user_details_form.user_image.id_for_label}}>Profile Picture</label>
+              {{user_details_form.user_image}}
+            </div>
+            <div style="form-group fieldWrapper">
+              <label for={{user_details_form.user_resume.id_for_label}}>Resume</label>
+              {{user_details_form.user_resume}}
+            </div>
+            <div class="form-group fieldWrapper">
+              <label for={{user_info_form.email.id_for_label}}>Email</label>
+              {{user_info_form.email}}
+            </div>
+            <div class="form-group fieldWrapper">
+              <label for={{user_details_form.user_interest.id_for_label}}>User Interest</label>
+              {{user_details_form.user_interest}}
+            </div>
+            <div class="form-group fieldWrapper">
+              <label for={{user_details_form.user_address.id_for_label}}>User Address</label>
+              {{user_details_form.user_address}}
+            </div>
+            <div class="form-group fieldWrapper">
+              <label for={{user_details_form.user_project_completed.id_for_label}}>User Projects Completed</label>
+              {{user_details_form.user_project_completed}}
+            </div>
+            <div class="form-group" style="text-align: center;" >
+              <input type="submit" value="Save" class="btn btn-primary py-3 px-5 button-class" style="display: none;" id="save-button">
+            </div>
+            <div>
+                {%for message in messages%}
+            <h4> {{message}} </h4>
+            {%endfor%}
+        </div>
+          </form>
+
+      </div>
+      <div class="col no-gutters justify-content-center pb-2">
+        <div class="col-md-12 heading-section text-center">
+            <h1 class="big big-2">Profile</h1>
+            <h2 class="mb-4">Add/Edit</h2>
+        </div>
+       
+        <div class="col page" style="text-align: center;">
+          <h3 class="page heading"><a href="proflie/educations" target="_blank">Education</a></h3>
+        </div>
+        <div class="col page" style="text-align: center;">
+          <h3 class="page heading"><a href="proflie/experiences" target="_blank">Experiences</a></h3>
+        </div>
+        <div class="col page" style="text-align: center;">
+          <h2 class="page heading"><a href="proflie/projects" target="_blank">Projects</a></h2>
+        </div>
+        <div class="col page" style="text-align: center;">
+          <h2 class="page heading"><a href="proflie/skills" target="_blank">Skills</a></h2>
+        </div>
+        <div class="col page" style="text-align: center;">
+          <h2 class="page heading"><a href="proflie/publications" target="_blank">Publications</a></h2>
+        </div>
+        <div class="col page" style="text-align: center;">
+          <h2 class="page heading"><a href="proflie/awards" target="_blank">Awards</a></h2>
+        </div>
+
+    </div>
+    </div>
     </div>
 </section>
 <script >

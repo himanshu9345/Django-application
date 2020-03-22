@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
 
-
+X_FRAME_OPTIONS = 'DENY'
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -143,6 +143,6 @@ STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 MEDIA_URL = '/media/'
 MEDIA_ROOT=""
 if DEBUG==True:
-    MEDIA_ROOT = '/home/himanshu/extra/media'
+    MEDIA_ROOT = '/home/himanshu/extra/media/'
 else:
-    MEDIA_ROOT = '/home/ubuntu/extra/media'
+    MEDIA_ROOT = '/home/ubuntu/extra/media/'
