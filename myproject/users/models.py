@@ -31,7 +31,7 @@ class PathAndRename(object):
         return os.path.join(self.path, renamed_filename)
 
 class Experience(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     company = models.TextField()
     position = models.TextField()
     desc = models.TextField()
@@ -42,19 +42,19 @@ class Experience(models.Model):
         return self.desc.split("#")
     
 class Skill(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     skill_name=models.CharField(max_length=40)
     percentage_you_know=models.IntegerField()
 
 class Award(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     award_name=models.CharField(max_length=100)
     award_place=models.CharField(max_length=100)
     describe_award = models.TextField()
     award_year = models.CharField(max_length=4)
 
 class Publication(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     publication_title= models.CharField(max_length=200)
     publication_name= models.CharField(max_length=200)
     publication_date= models.DateField()
@@ -62,7 +62,7 @@ class Publication(models.Model):
     publication_description = models.TextField()
 
 class Project(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     project_title = models.CharField(max_length=200)
     project_description = models.TextField()
     project_url = models.URLField()
@@ -72,7 +72,7 @@ class Project(models.Model):
     project_end_year =models.CharField(max_length=4)
 
 class Education(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     college_name = models.CharField(max_length=200)
     degree_name = models.CharField(max_length=200)
     major_name = models.CharField(max_length=200)

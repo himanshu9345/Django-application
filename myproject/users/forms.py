@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserExtraDetails
+from .models import UserExtraDetails,Experience
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserChangeForm
@@ -38,3 +38,24 @@ class UserForm(UserChangeForm):
         self.fields['username'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_username)'})
         self.fields['email'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_email)'})
     
+class ExperienceForm(ModelForm):
+    
+    class Meta:
+        model=Experience
+        fields=('company','position','desc','start_year','end_year')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['company'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_company)'})
+        self.fields['position'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_position)'})
+        self.fields['desc'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_desc)'})
+        self.fields['start_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_start_year)'})
+        self.fields['end_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_end_year)'})
+
+
+    # def save(self, user,profile):
+    #     obj = super(UserExtraDetailsForm,self).save(commit = False)
+    #     obj.user = user
+    #     obj.id=profile.id
+    #     # obj.save()
+    #     return obj

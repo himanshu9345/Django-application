@@ -1,17 +1,66 @@
 from django.shortcuts import render,redirect
-from .forms import UserExtraDetailsForm,UserForm
+from .forms import UserExtraDetailsForm,UserForm,ExperienceForm
 from django.contrib.auth.decorators import login_required
-from .models import UserExtraDetails
+from .models import UserExtraDetails,Experience
+from django.views.generic.edit import DeleteView
 from django.contrib.auth.models import User
 from django.contrib import messages
-
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
 def viewprofile(request,user_id):
     print(request,"viewprofile")
-    return render(request,"profile.html",{'user_id':user_id})
+    return render(request,"index.html",{'user_id':user_id})
 
+@login_required
+def showExperience(request):
+    current_user_id=request.user.id
+    user_experiences=Experience.objects.filter(user_id=current_user_id)
+
+    # print (exp_id)
+    return render(request,"experiences.html",{'user_experiences':user_experiences})
+
+
+@login_required
+def deleteExperience(request,exp_id):
+    try:
+        user_experience= get_object_or_404(Experience, pk=exp_id)
+        user_experience.delete()
+        return redirect('experiences')
+
+    except:
+        raise Http404("No experience found")
+
+
+@login_required
+def EditableExperience(request,exp_id):
+    current_user_id=request.user.id
+    user_experience_form=ExperienceForm()
+    user_exp_data=None
+    if request.method=='POST':
+        user_experience=None
+        if exp_id!='new':
+            user_experience=Experience.objects.filter(user_id=current_user_id,id=int(exp_id))
+        if user_experience:
+            user_exp_data=user_experience[0]
+        
+        user_experience_form=ExperienceForm(data=request.POST,instance=user_exp_data)
+        obj=user_experience_form.save(commit=False)
+        
+        if exp_id=='new':
+            obj.user_id=current_user_id
+        obj.save()
+        return redirect('experiences')
+
+    if exp_id!="new":
+        user_experience=Experience.objects.filter(user_id=current_user_id,id=int(exp_id))
+        if user_experience:
+            user_exp_data=user_experience[0]
+            user_experience_form=ExperienceForm(instance=user_exp_data)
+            print(user_experience_form)
+    
+    return render(request,"experience.html",{'user_experience_form':user_experience_form})
 
 @login_required
 def showEditableProfile(request):
@@ -50,12 +99,8 @@ def showEditableProfile(request):
                 print("valid user from")
                 user_form.save()
         
-        # print(form.fields['user_resume'].values)
         
         messages.info(request,"Information Updated")
-        # print(form)
-
-        # return render(request,"profile.html",{'user_details_form':form,'user_info_form':user_form})
 
 
     print('GET')
