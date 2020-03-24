@@ -52,6 +52,8 @@ class Award(models.Model):
     award_place=models.CharField(max_length=100)
     describe_award = models.TextField()
     award_month_year = models.CharField(max_length=20)
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Award._meta.fields if field.name!='user']
 
 class Publication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

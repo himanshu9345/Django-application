@@ -22,14 +22,14 @@ def showAward(request):
     current_user_id=request.user.id
     user_awards=Award.objects.filter(user_id=current_user_id)
     fieldlist=[convertToCamelCase(f.name)  for f in Award._meta.get_fields() if f.name!='user']
-    return render(request,"commondisplaypage.html",{'fieldlist':fieldlist,'user_forms':user_awards})
+    return render(request,"commondisplaypage.html",{'fieldlist':fieldlist,'user_forms':user_awards,'type_of_user_detail':'award','model_name':'Award'})
 
 @login_required
 def deleteAward(request,award_id):
     try:
         user_award= get_object_or_404(award, pk=exp_id)
         user_award.delete()
-        return redirect('awards')
+        return redirect('award')
 
     except:
         raise Http404("No award found")
@@ -37,6 +37,7 @@ def deleteAward(request,award_id):
 
 @login_required
 def editableAward(request,award_id):
+    to_edit=False
     current_user_id=request.user.id
     user_award_form=AwardForm()
     user_award_data=None
@@ -54,12 +55,13 @@ def editableAward(request,award_id):
             if award_id=='new':
                 obj.user_id=current_user_id
             obj.save()
-            return redirect('awards')
+            return redirect('award')
         else:
-            raise Http404("No experience found")
+            raise Http404("No education found")
             
     else:
         if award_id!="new":
+            to_edit=True
             user_award=Award.objects.filter(user_id=current_user_id,id=int(award_id))
             if user_award:
                 user_award_data=user_award[0]
@@ -68,7 +70,7 @@ def editableAward(request,award_id):
             else:
                 raise Http404("No award found")
     
-    return render(request,"award.html",{'form_requested':user_education_form})
+    return render(request,"commoneditableform.html",{'form_requested':user_award_form,'type_of_user_detail':'award','model_name':'Award','isEdit':to_edit})
 
 
 
@@ -83,7 +85,7 @@ def deleteEducation(request,education_id):
     try:
         user_education= get_object_or_404(Education, pk=exp_id)
         user_education.delete()
-        return redirect('educations')
+        return redirect('education')
 
     except:
         raise Http404("No education found")
@@ -108,9 +110,9 @@ def editableEducation(request,education_id):
             if education_id=='new':
                 obj.user_id=current_user_id
             obj.save()
-            return redirect('educations')
+            return redirect('education')
         else:
-            raise Http404("No experience found")
+            raise Http404("No Education found")
             
     else:
         if education_id!="new":
@@ -138,7 +140,7 @@ def deleteExperience(request,exp_id):
     try:
         user_experience= get_object_or_404(Experience, pk=exp_id)
         user_experience.delete()
-        return redirect('experiences')
+        return redirect('experience')
 
     except:
         raise Http404("No experience found")
@@ -163,7 +165,7 @@ def editableExperience(request,exp_id):
             if exp_id=='new':
                 obj.user_id=current_user_id
             obj.save()
-            return redirect('experiences')
+            return redirect('experience')
         except:
             raise Http404("No experience found")
 
