@@ -25,9 +25,9 @@
 <section class="ftco-section">
 	<div class="col no-gutters justify-content-center pb-2">
 		<div class="col-md-12 heading-section text-center">
-			<h1 class="big big-2">Experiences</h1>
-			<h2 class="mb-4">Add/Edit Experience</h2>
-			<button type="button" onclick="location.href='experiences/new'" class="btn btn-primary btn-lg">Add</button>
+			<h1 class="big big-2">Educations</h1>
+			<h2 class="mb-4">Add/Edit Education</h2>
+			<button type="button" onclick="location.href='educations/new'" class="btn btn-primary btn-lg">Add</button>
 		</div>
 
 	</div>
@@ -35,9 +35,9 @@
 		<thead class="thead-dark">
 		  <tr>
 			<th scope="col">ID</th>
-			<th scope="col">Company</th>
-			<th scope="col">Position</th>
-			<th scope="col">Description</th>
+			<th scope="col">Collage Name</th>
+			<th scope="col">Degree Name</th>
+			<th scope="col">Major Name</th>
 			<th scope="col">Start</th>
 			<th scope="col">End</th>
 			<th scope="col"></th>
@@ -46,16 +46,16 @@
 		  </tr>
 		</thead>
 		<tbody>
-			{%for experience in user_experiences%}
+			{%for education in user_educations%}
 			<tr>
-				<th scope="row">{{experience.id}}</th>
-				<td>{{experience.company}}</td>
-				<td>{{experience.position}}</td>
-				<td  style="text-align: justify;">{{experience.desc}}</td>
-				<td>{{experience.start_month_year}}</td>
-				<td>{{experience.end_month_year}}</td>
-				<td><button type="button" onclick="location.href='experiences/{{experience.id}}'" class="btn btn-primary">Edit</button>
-					<button type="button" onclick="location.href='experiences/{{experience.id}}/delete'" class="btn btn-danger">Delete</button>
+				<th scope="row">{{education.id}}</th>
+				<td>{{education.college_name}}</td>
+				<td>{{education.degree_name}}</td>
+				<td  style="text-align: justify;">{{education.major_name}}</td>
+				<td>{{education.college_start_month_year}}</td>
+				<td>{{education.college_end_month_year}}</td>
+				<td><button type="button" onclick="location.href='educations/{{education.id}}'" class="btn btn-primary">Edit</button>
+					<button type="button" onclick="location.href='educations/{{education.id}}/delete'" class="btn btn-danger">Delete</button>
 					</td>
 			  </tr>
 			{%endfor%}

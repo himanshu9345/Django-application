@@ -12,7 +12,6 @@
 	  <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="oi oi-menu"></span> Menu
 	  </button>
-
 	  <div class="collapse navbar-collapse" id="ftco-nav">
 		<ul class="navbar-nav nav ml-auto">
 			<li class="nav-item"><a href="profile" class="nav-link"><span>Proflie</span></a></li>
@@ -34,13 +33,11 @@
 	<table class="table table-hover">
 		<thead class="thead-dark">
 		  <tr>
-			<th scope="col">ID</th>
-			<th scope="col">Company</th>
-			<th scope="col">Position</th>
-			<th scope="col">Description</th>
-			<th scope="col">Start</th>
-			<th scope="col">End</th>
-			<th scope="col"></th>
+			{%for field in fieldlist%}
+			<th scope="col">{{field}}</th>
+			{%endfor%}
+			
+			<th scope="col"></th> 
 
 
 		  </tr>
@@ -48,7 +45,9 @@
 		<tbody>
 			{%for experience in user_experiences%}
 			<tr>
+				
 				<th scope="row">{{experience.id}}</th>
+				
 				<td>{{experience.company}}</td>
 				<td>{{experience.position}}</td>
 				<td  style="text-align: justify;">{{experience.desc}}</td>
@@ -56,7 +55,7 @@
 				<td>{{experience.end_month_year}}</td>
 				<td><button type="button" onclick="location.href='experiences/{{experience.id}}'" class="btn btn-primary">Edit</button>
 					<button type="button" onclick="location.href='experiences/{{experience.id}}/delete'" class="btn btn-danger">Delete</button>
-					</td>
+				</td>
 			  </tr>
 			{%endfor%}
 		  

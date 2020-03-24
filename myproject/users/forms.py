@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserExtraDetails,Experience
+from .models import UserExtraDetails,Experience,Education,Award
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserChangeForm
@@ -42,20 +42,40 @@ class ExperienceForm(ModelForm):
     
     class Meta:
         model=Experience
-        fields=('company','position','desc','start_year','end_year')
+        fields=('company','position','desc','start_month_year','end_month_year')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['company'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_company)'})
         self.fields['position'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_position)'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_desc)'})
-        self.fields['start_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_start_year)'})
-        self.fields['end_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_end_year)'})
+        self.fields['start_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_start_month_year)'})
+        self.fields['end_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_end_month_year)'})
 
+class EducationForm(ModelForm):
+    
+    class Meta:
+        model=Education
+        fields=('college_name','degree_name','major_name','college_start_month_year','college_end_month_year')
 
-    # def save(self, user,profile):
-    #     obj = super(UserExtraDetailsForm,self).save(commit = False)
-    #     obj.user = user
-    #     obj.id=profile.id
-    #     # obj.save()
-    #     return obj
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['college_name'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_college_name)'})
+        self.fields['degree_name'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_degree_name)'})
+        self.fields['major_name'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_major_name)'})
+        self.fields['college_start_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_college_start_month_year)'})
+        self.fields['college_end_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_college_end_month_year)'})
+
+class AwardForm(ModelForm):
+    
+    class Meta:
+        model=Award
+        fields=('award_name','award_place','describe_award','award_month_year')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['award_name'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_award_name)'})
+        self.fields['award_place'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_award_place)'})
+        self.fields['describe_award'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_describe_award)'})
+        self.fields['award_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_award_month_year)'})
+

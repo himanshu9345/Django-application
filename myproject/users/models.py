@@ -32,11 +32,11 @@ class PathAndRename(object):
 
 class Experience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    company = models.TextField()
-    position = models.TextField()
+    company = models.CharField(max_length=50)
+    position = models.CharField(max_length=50)
     desc = models.TextField()
-    start_year = models.CharField(max_length=4)
-    end_year =models.CharField(max_length=4)
+    start_month_year = models.CharField(max_length=20)
+    end_month_year =models.CharField(max_length=20)
 
     def split_lines(self):
         return self.desc.split("#")
@@ -51,7 +51,7 @@ class Award(models.Model):
     award_name=models.CharField(max_length=100)
     award_place=models.CharField(max_length=100)
     describe_award = models.TextField()
-    award_year = models.CharField(max_length=4)
+    award_month_year = models.CharField(max_length=20)
 
 class Publication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -68,16 +68,16 @@ class Project(models.Model):
     project_url = models.URLField()
     image_path = time.strftime('pics/%Y/%m/%d')
     project_photo = models.ImageField(upload_to=PathAndRename(image_path))
-    project_start_year = models.CharField(max_length=4)
-    project_end_year =models.CharField(max_length=4)
+    project_start_month_year = models.CharField(max_length=20)
+    project_end_month_year =models.CharField(max_length=20)
 
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     college_name = models.CharField(max_length=200)
     degree_name = models.CharField(max_length=200)
     major_name = models.CharField(max_length=200)
-    college_start_year = models.CharField(max_length=4)
-    college_end_year =models.CharField(max_length=4)
+    college_start_month_year = models.CharField(max_length=20)
+    college_end_month_year =models.CharField(max_length=20)
 
 class UserExtraDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
