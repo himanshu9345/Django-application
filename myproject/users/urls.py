@@ -3,7 +3,7 @@ from django.urls import path,re_path
 from . import views
 
 urlpatterns = [
-    path("profile/<str:user_id>",views.viewProfile,name="profile"),
+    path("profile/<str:username>",views.viewProfile,name="viewprofile"),
     path("profile/",views.showEditableProfile,name="profile"),
     # path("experience/",views.showExperience,name="experience"),
     # path("experience/<str:exp_id>",views.editableExperience,name="editexperience"),
@@ -14,10 +14,12 @@ urlpatterns = [
     # path("award/",views.showAward,name="award"),
     # path("award/<str:award_id>",views.editableAward,name="editaward"),
     # path("award/<str:award_id>/delete/",views.deleteAward,name="deleteaward"),
-    path("<str:category>/",views.showCategory,name="category"),
-    path("<str:category>/<str:category_id>",views.editableCategory,name="editablecategory"),
-    path("<str:category>/<str:category_id>/delete/",views.deleteCategory,name="deletecategory"),
-    path("profile/<str:username>/projects/",views.userProjects,name="userprojects"),
+    path("user/<str:category>/",views.showCategory,name="category"),
+    path("user/<str:category>/<str:category_id>",views.editableCategory,name="editablecategory"),
+    path("user/<str:category>/<str:category_id>/delete/",views.deleteCategory,name="deletecategory"),
+    path("user/<str:username>/projects/",views.userProjects,name="userprojects"),
+    path("sendemail/<str:username>",views.sendemail,name="sendemail")
+
 
 
 

@@ -342,23 +342,26 @@
 		            <p><a href="mailto:{{user_details.email}}">{{user_details.email}}</a></p>
 		          </div>
 	          </div>
-          </div>
+		  </div>
+		  
+		  {%for contact in contactdetails%}
           <div class="col-md-6 col-lg-3 d-flex ftco-animate">
           	<div class="align-self-stretch box text-center p-4 shadow">
           		<div class="icon d-flex align-items-center justify-content-center">
           			<span class="icon-globe"></span>
           		</div>
           		<div>
-	          		<h3 class="mb-4">LinkedIn</h3>
-		            <p><a href="https://www.linkedin.com/in/hbp/">Profile</a></p>
+	          		<h3 class="mb-4">{{contact.contact_type}}</h3>
+		            <p><a href="{{contact.contact_profile_url}}">Profile</a></p>
 	            </div>
 	          </div>
-          </div>
+		  </div>
+		  {%endfor%}
         </div>
 		
         <div class="row no-gutters block-9">
           <div class="col-md-6 order-md-last d-flex">
-            <form action="sendemail" method="post" class="bg-light p-4 p-md-5 contact-form">
+            <form action="{%url 'sendemail' username=username%}" method="post" class="bg-light p-4 p-md-5 contact-form">
 				{% csrf_token %}
 
               <div class="form-group">

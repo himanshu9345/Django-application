@@ -26,9 +26,12 @@
 <section class="ftco-section">
 	<div class="col no-gutters justify-content-center pb-2">
 		<div class="col-md-12 heading-section text-center">
-			<h1 class="big big-2">{{model_name}}</h1>
+			{%if model_name == "Education" or model_name == "Experience" or model_name == "ContactDetails"%}
+			<h2 class="mb-4">{{model_name}}</h2>
+			{%else%}
 			<h2 class="mb-4">{{model_name}}s</h2>
-			<button type="button" onclick="location.href='{{type_of_user_detail}}/new'" class="btn btn-primary btn-lg">Add</button>
+			{%endif%}
+			<button type="button" onclick="location.href='user/{{type_of_user_detail}}/new'" class="btn btn-primary btn-lg">Add</button>
 		</div>
 
 	</div>
@@ -59,8 +62,8 @@
 
 				{%endfor%}
 				
-				<td><button type="button" onclick="location.href='{{type_of_user_detail}}/{{details.id}}'" class="btn btn-primary">Edit</button>
-					<button type="button" onclick="location.href='{{type_of_user_detail}}/{{details.id}}/delete'" class="btn btn-danger">Delete</button>
+				<td><button type="button" onclick="location.href='user/{{type_of_user_detail}}/{{details.id}}'" class="btn btn-primary">Edit</button>
+					<button type="button" onclick="location.href='user/{{type_of_user_detail}}/{{details.id}}/delete'" class="btn btn-danger">Delete</button>
 				</td>
 			</tr>
 			{%endfor%}

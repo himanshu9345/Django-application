@@ -16,7 +16,13 @@
 
 	  <div class="collapse navbar-collapse" id="ftco-nav">
 		<ul class="navbar-nav nav ml-auto">
-      <li class="nav-item"><a href="{{type_of_user_detail}}" class="nav-link"><span>{{model_name}}s</span></a></li>
+
+      {%if model_name == "Education" or model_name == "Experience" or model_name == "ContactDetails" %}
+      <li class="nav-item"><a href="/user/{{type_of_user_detail}}" class="nav-link"><span>{{model_name}}</span></a></li>
+			
+			{%else%}
+      <li class="nav-item"><a href="/user/{{type_of_user_detail}}" class="nav-link"><span>{{model_name}}s</span></a></li>
+			{%endif%}
 			<li class="nav-item"><a href="profile" class="nav-link"><span>Profile</span></a></li>
 		  <li class="nav-item"><a href="/profile/{{request.user}}" class="nav-link"><span>Preview Portfolio</span></a></li>
       

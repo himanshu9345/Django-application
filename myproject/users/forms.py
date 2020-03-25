@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserExtraDetails,Experience,Education,Award,Skill,Publication,Project
+from .models import UserExtraDetails,Experience,Education,Award,Skill,Publication,Project,ContactDetails
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserChangeForm
@@ -118,3 +118,14 @@ class ProjectForm(ModelForm):
         self.fields['project_image'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_image)'})
         self.fields['project_start_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_start_month_year)'})
         self.fields['project_end_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_end_month_year)'})
+
+class ContactDetailsForm(ModelForm):
+    
+    class Meta:
+        model=ContactDetails
+        fields=('contact_type','contact_profile_url')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['contact_type'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_contact_type)'})
+        self.fields['contact_profile_url'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_contact_profile_url)'})

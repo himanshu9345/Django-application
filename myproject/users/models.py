@@ -108,3 +108,11 @@ class UserExtraDetails(models.Model):
     def get_interest(self):
         
         return json.dumps([convertToCamelCase(word)+"." for word in self.user_interest.split(",")])
+
+class ContactDetails(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    contact_type=models.CharField(max_length=20)
+    contact_profile_url=models.URLField(default="")
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in ContactDetails._meta.fields if field.name!='user']
+ 

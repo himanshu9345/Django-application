@@ -1,28 +1,33 @@
 from django.shortcuts import render,redirect
-from .forms import UserExtraDetailsForm,UserForm,ExperienceForm,EducationForm,AwardForm,SkillForm,PublicationForm,ProjectForm
+from .forms import UserExtraDetailsForm,UserForm,ExperienceForm,EducationForm,AwardForm,SkillForm,PublicationForm,ProjectForm,ContactDetailsForm
 from django.contrib.auth.decorators import login_required
-from .models import UserExtraDetails,Experience,Education,Award,Skill,Publication,Project
+from .models import UserExtraDetails,Experience,Education,Award,Skill,Publication,Project,ContactDetails
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.urls import reverse
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from dotenv import load_dotenv
+import os
 
 # Create your views here.
 category_name_model_form_dict={'skill':[Skill,SkillForm,'Skill','skill',SkillForm()],\
     'publication':[Publication,PublicationForm,'Publication','publication',PublicationForm()],\
     'project':[Project,ProjectForm,'Project','project',ProjectForm()],\
-    'education':[Education,EducationForm,'Education','education',EducationForm()], 
+    'education':[Education,EducationForm,'Education',"education",EducationForm()], 
     'experience':[Experience,ExperienceForm,'Experience','experience',ExperienceForm()], 
+    'contactdetails':[ContactDetails,ContactDetailsForm,'ContactDetails','contactdetails',ContactDetailsForm()], 
     
     'award':[Award,AwardForm,'Award','award',AwardForm()]}
 
-def viewProfile(request,user_id):
-    print("in view Profile",user_id)
+def viewProfile(request,username):
+    print("in view Profile",username)
     user=None
     try:
-        user= get_object_or_404(User, username=user_id)
+        user= get_object_or_404(User, username=username)
     except:
         raise Http404("User not found")
     exps = Experience.objects.all().filter(user_id=user.id).order_by('-end_month_year')
@@ -31,9 +36,10 @@ def viewProfile(request,user_id):
     publications = Publication.objects.all().filter(user_id=user.id).order_by('-publication_date')
     projects = Project.objects.all().filter(user_id=user.id).order_by('-project_end_month_year')
     education = Education.objects.all().filter(user_id=user.id).order_by('-college_end_month_year')
+    contactdetails = ContactDetails.objects.all().filter(user_id=user.id)
     user_details=User.objects.get(id=user.id)
     user_extra_details=UserExtraDetails.objects.get(user_id=user.id)
-    return render(request,"userprofile.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':user_id,'user_details':user_details,'user_extra_details':user_extra_details,'education':education})
+    return render(request,"userprofile.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
     
 def userProjects(request,username):
     user=None
@@ -52,47 +58,48 @@ def convertToCamelCase(word):
 
 @login_required
 def editableCategory(request,category,category_id):
-    to_edit=False
-    current_user_id=request.user.id
-    user_category_form=category_name_model_form_dict[category][4]
-    user_category_data=None
-    if request.method=='POST':
-        user_category=None
-        if category_id!='new':
-            user_category=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id,id=int(category_id))
-        if user_category:
-            user_category_data=user_category[0]
-        
-        if user_category or category_id=='new':
-            user_category_form=category_name_model_form_dict[category][1](request.POST,request.FILES,instance=user_category_data)
-
-            if user_category_form.is_valid:
-                print(user_category_form)
-                
-                obj=user_category_form.save(commit=False)
-                if category_id=='new':
-                    obj.user_id=current_user_id
-                obj.save()
-                return HttpResponseRedirect(reverse('category',args=(category_name_model_form_dict[category][3],)))
-            else:
-                print(user_category_form.errors)
-
-        else:
-            raise Http404("No "+category_name_model_form_dict[category][2]+" found")
-            
-    else:
-        if category_id!="new":
-            to_edit=True
-            user_category=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id,id=int(category_id))
+    if category in category_name_model_form_dict:
+        to_edit=False
+        current_user_id=request.user.id
+        user_category_form=category_name_model_form_dict[category][4]
+        user_category_data=None
+        if request.method=='POST':
+            user_category=None
+            if category_id!='new':
+                user_category=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id,id=int(category_id))
             if user_category:
                 user_category_data=user_category[0]
-                user_category_form=category_name_model_form_dict[category][1](instance=user_category_data)
-                print(user_category_form)
+            
+            if user_category or category_id=='new':
+                user_category_form=category_name_model_form_dict[category][1](request.POST,request.FILES,instance=user_category_data)
+
+                if user_category_form.is_valid:
+                    print(user_category_form)
+                    
+                    obj=user_category_form.save(commit=False)
+                    if category_id=='new':
+                        obj.user_id=current_user_id
+                    obj.save()
+                    return HttpResponseRedirect(reverse('category',args=(category_name_model_form_dict[category][3],)))
+                else:
+                    print(user_category_form.errors)
+
             else:
                 raise Http404("No "+category_name_model_form_dict[category][2]+" found")
+                
+        else:
+            if category_id!="new":
+                to_edit=True
+                user_category=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id,id=int(category_id))
+                if user_category:
+                    user_category_data=user_category[0]
+                    user_category_form=category_name_model_form_dict[category][1](instance=user_category_data)
+                    print(user_category_form)
+                else:
+                    raise Http404("No "+category_name_model_form_dict[category][2]+" found")
 
     
-    return render(request,"commoneditableform.html",{'form_requested':user_category_form,'type_of_user_detail':category_name_model_form_dict[category][3],'model_name':category_name_model_form_dict[category][2],'isEdit':to_edit})
+        return render(request,"commoneditableform.html",{'form_requested':user_category_form,'type_of_user_detail':category_name_model_form_dict[category][3],'model_name':category_name_model_form_dict[category][2],'isEdit':to_edit})
 
 
 
@@ -116,6 +123,51 @@ def deleteCategory(request,category,category_id):
         return HttpResponseRedirect(reverse('category',args=(category_name_model_form_dict[category][3],)))
     except:
         raise Http404("No "+category_name_model_form_dict[category][2]+" found")
+
+def sendemail(request,username):#remaining
+    user=None
+    if request.method=="POST":
+        try:
+            user= get_object_or_404(User, username=username)
+        except:
+            raise Http404("User not found")
+        person_name=request.POST['person_name']
+        email=request.POST['email']
+        email_subject=request.POST['email_subject']
+        message=request.POST['message']
+        to_sender="Hello "+person_name+",\n"+"you will be contacted soon. <br>"+"Your Message was, <strong>"+message+"<strong>"
+        to_sender_subject="Replay from "+user.first_name
+        to_user="Hello "+user.first_name+",\n"+" <br>you got contacted by "+person_name+" <br>"+"Message for you is, <strong>"+message+"</strong></br>"+" <br> sender emailid - "+email+"</br>"
+        message1 = Mail(
+            from_email='faltu9345@gmail.com',
+            to_emails=user.email,
+            subject=email_subject,
+            html_content=to_user)
+        message2 = Mail(
+            from_email='faltu9345@gmail.com',
+            to_emails=email,
+            subject=to_sender_subject,
+            html_content=to_sender)
+        try:
+            
+            sg = SendGridAPIClient(os.getenv('SEND_GRID_KEY'))
+            response = sg.send(message1)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+            response = sg.send(message2)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e)
+            print("nope")
+
+        return redirect('viewprofile',username=username)
+
+    else:
+        
+        return redirect('viewprofile',username=username)
 
 
 # @login_required
