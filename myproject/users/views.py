@@ -12,7 +12,8 @@ from django.urls import reverse
 # Create your views here.
 category_name_model_form_dict={'skill':[Skill,SkillForm,'Skill','skill',SkillForm()],'publication':[Publication,PublicationForm,'Publication','publication',PublicationForm()],'project':[Project,ProjectForm,'Project','project',ProjectForm()]}
 
-def viewprofile(request,user_id):
+def viewProfile(request,user_id):
+    print("in view Profile",user_id)
     user=None
     try:
         user= get_object_or_404(User, username=user_id)
@@ -23,7 +24,10 @@ def viewprofile(request,user_id):
     awards = Award.objects.all().filter(user_id=user.id).order_by('-award_month_year')
     publications = Publication.objects.all().filter(user_id=user.id).order_by('-publication_date')
     projects = Project.objects.all().filter(user_id=user.id).order_by('-project_end_month_year')
-    return render(request,"userprofile.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':user_id})
+    eductaion = Education.objects.all().filter(user_id=user.id).order_by('-college_end_month_year')
+    user_details=User.objects.get(user_id=user.id)
+    user_extra_details=UserExtraDetails.objects.get(user_id=current_user_id)
+    return render(request,"userprofile.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':user_id,'user_details':user_details,'user_extra_details':user_extra_details,'education':education})
     
 def userProjects(request,username):
     user=None
@@ -88,12 +92,15 @@ def editableCategory(request,category,category_id):
 
 @login_required
 def showCategory(request,category):
-    print(category)
-    current_user_id=request.user.id
-    user_awards=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id)
-    print(user_awards)
-    fieldlist=[convertToCamelCase(f.name)  for f in category_name_model_form_dict[category][0]._meta.get_fields() if f.name!='user']
-    return render(request,"commondisplaypage.html",{'fieldlist':fieldlist,'user_forms':user_awards,'type_of_user_detail':category_name_model_form_dict[category][3],'model_name':category_name_model_form_dict[category][2]})
+    print("inshow category",category)
+    if category in category_name_model_form_dict:
+        current_user_id=request.user.id
+        user_awards=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id)
+        print(user_awards)
+        fieldlist=[convertToCamelCase(f.name)  for f in category_name_model_form_dict[category][0]._meta.get_fields() if f.name!='user']
+        return render(request,"commondisplaypage.html",{'fieldlist':fieldlist,'user_forms':user_awards,'type_of_user_detail':category_name_model_form_dict[category][3],'model_name':category_name_model_form_dict[category][2]})
+    else:
+        raise Http404("Page not found")
 
 @login_required
 def deleteCategory(request,category,category_id):
