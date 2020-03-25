@@ -1,21 +1,109 @@
 from django.shortcuts import render,redirect
-from .forms import UserExtraDetailsForm,UserForm,ExperienceForm,EducationForm,AwardForm
+from .forms import UserExtraDetailsForm,UserForm,ExperienceForm,EducationForm,AwardForm,SkillForm,PublicationForm,ProjectForm
 from django.contrib.auth.decorators import login_required
-from .models import UserExtraDetails,Experience,Education,Award
+from .models import UserExtraDetails,Experience,Education,Award,Skill,Publication,Project
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404,HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
+category_name_model_form_dict={'skill':[Skill,SkillForm,'Skill','skill',SkillForm()],'publication':[Publication,PublicationForm,'Publication','publication',PublicationForm()],'project':[Project,ProjectForm,'Project','project',ProjectForm()]}
 
 def viewprofile(request,user_id):
-    print(request,"viewprofile")
-    return render(request,"index.html",{'user_id':user_id})
+    user=None
+    try:
+        user= get_object_or_404(User, username=user_id)
+    except:
+        raise Http404("User not found")
+    exps = Experience.objects.all().filter(user_id=user.id).order_by('-end_month_year')
+    skills = Skill.objects.all().filter(user_id=user.id).order_by('-percentage_you_know')
+    awards = Award.objects.all().filter(user_id=user.id).order_by('-award_month_year')
+    publications = Publication.objects.all().filter(user_id=user.id).order_by('-publication_date')
+    projects = Project.objects.all().filter(user_id=user.id).order_by('-project_end_month_year')
+    return render(request,"userprofile.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':user_id})
+    
+def userProjects(request,username):
+    user=None
+    user_url="/".join(request.build_absolute_uri().split("/projects/")[:-1])
+    try:
+        user= get_object_or_404(User, username=username)
+    except:
+        raise Http404("User not found")
+    projects = Project.objects.all().filter(user_id=user.id).order_by('-project_end_month_year')
+    
+    # print(app_url,"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+    return render(request,"projects.html",{'app_url': user_url,'projects':projects})
 
 def convertToCamelCase(word):
     return ' '.join(x.capitalize() or '_' for x in word.split('_'))
+
+@login_required
+def editableCategory(request,category,category_id):
+    to_edit=False
+    current_user_id=request.user.id
+    user_category_form=category_name_model_form_dict[category][4]
+    user_category_data=None
+    if request.method=='POST':
+        user_category=None
+        if category_id!='new':
+            user_category=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id,id=int(category_id))
+        if user_category:
+            user_category_data=user_category[0]
+        
+        if user_category or category_id=='new':
+            user_category_form=category_name_model_form_dict[category][1](request.POST,request.FILES,instance=user_category_data)
+
+            if user_category_form.is_valid:
+                print(user_category_form)
+                
+                obj=user_category_form.save(commit=False)
+                if category_id=='new':
+                    obj.user_id=current_user_id
+                obj.save()
+                return HttpResponseRedirect(reverse('category',args=(category_name_model_form_dict[category][3],)))
+            else:
+                print(user_category_form.errors)
+
+        else:
+            raise Http404("No "+category_name_model_form_dict[category][2]+" found")
+            
+    else:
+        if category_id!="new":
+            to_edit=True
+            user_category=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id,id=int(category_id))
+            if user_category:
+                user_category_data=user_category[0]
+                user_category_form=category_name_model_form_dict[category][1](instance=user_category_data)
+                print(user_category_form)
+            else:
+                raise Http404("No "+category_name_model_form_dict[category][2]+" found")
+
+    
+    return render(request,"commoneditableform.html",{'form_requested':user_category_form,'type_of_user_detail':category_name_model_form_dict[category][3],'model_name':category_name_model_form_dict[category][2],'isEdit':to_edit})
+
+
+
+@login_required
+def showCategory(request,category):
+    print(category)
+    current_user_id=request.user.id
+    user_awards=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id)
+    print(user_awards)
+    fieldlist=[convertToCamelCase(f.name)  for f in category_name_model_form_dict[category][0]._meta.get_fields() if f.name!='user']
+    return render(request,"commondisplaypage.html",{'fieldlist':fieldlist,'user_forms':user_awards,'type_of_user_detail':category_name_model_form_dict[category][3],'model_name':category_name_model_form_dict[category][2]})
+
+@login_required
+def deleteCategory(request,category,category_id):
+    try:
+        user_category= get_object_or_404(category_name_model_form_dict[category][0], pk=category_id)
+        user_category.delete()
+        return HttpResponseRedirect(reverse('category',args=(category_name_model_form_dict[category][3],)))
+    except:
+        raise Http404("No "+category_name_model_form_dict[category][2]+" found")
+
 
 @login_required
 def showAward(request):
@@ -27,7 +115,7 @@ def showAward(request):
 @login_required
 def deleteAward(request,award_id):
     try:
-        user_award= get_object_or_404(award, pk=exp_id)
+        user_award= get_object_or_404(award, pk=award_id)
         user_award.delete()
         return redirect('award')
 

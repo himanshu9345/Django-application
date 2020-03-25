@@ -34,7 +34,7 @@
 		<thead class="thead-dark">
 		  <tr>
 			{%for field in fieldlist%}
-			<th scope="col">{{field}}</th>
+			<th scope="col" style="text-align: center;">{{field}}</th>
 			{%endfor%}
 			
 			<th scope="col"></th> 
@@ -46,7 +46,14 @@
 			{%for details in user_forms%}
 			<tr>
 				{%for name,value in details.get_fields%}
-				<td style="text-align: justify;">{{value}}</td>
+				{%if  "image" in name %}
+				<td style="text-align: center;"><a href="media/{{value}}"  target="_blank">Image</a></td>
+
+				{%elif "url" in name %}
+				<td style="text-align: center;"><a href="{{value}}" target="_blank">Url</a></td>
+				{%else%}
+				<td style="text-align: center;">{{value}}</td>
+				{%endif%}
 
 				{%endfor%}
 				

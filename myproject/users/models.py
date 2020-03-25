@@ -40,11 +40,15 @@ class Experience(models.Model):
 
     def split_lines(self):
         return self.desc.split("#")
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Experience._meta.fields if field.name!='user']
     
 class Skill(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     skill_name=models.CharField(max_length=40)
     percentage_you_know=models.IntegerField()
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Skill._meta.fields if field.name!='user']
 
 class Award(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -62,6 +66,8 @@ class Publication(models.Model):
     publication_date= models.DateField()
     publication_url = models.URLField()
     publication_description = models.TextField()
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Publication._meta.fields if field.name!='user']
 
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -69,9 +75,11 @@ class Project(models.Model):
     project_description = models.TextField()
     project_url = models.URLField()
     image_path = time.strftime('pics/%Y/%m/%d')
-    project_photo = models.ImageField(upload_to=PathAndRename(image_path))
+    project_image = models.ImageField(upload_to=PathAndRename(image_path))
     project_start_month_year = models.CharField(max_length=20)
     project_end_month_year =models.CharField(max_length=20)
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Project._meta.fields if field.name!='user']
 
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -80,6 +88,8 @@ class Education(models.Model):
     major_name = models.CharField(max_length=200)
     college_start_month_year = models.CharField(max_length=20)
     college_end_month_year =models.CharField(max_length=20)
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Education._meta.fields if field.name!='user']
 
 class UserExtraDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -90,3 +100,5 @@ class UserExtraDetails(models.Model):
     image_path = time.strftime('files/%Y/%m/%d')
     user_resume = models.FileField(upload_to=PathAndRename(image_path),default="resume.pdf")
     user_project_completed = models.IntegerField(default=0)
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in UserExtraDetails._meta.fields if field.name!='user']

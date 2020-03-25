@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserExtraDetails,Experience,Education,Award
+from .models import UserExtraDetails,Experience,Education,Award,Skill,Publication,Project
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserChangeForm
@@ -79,3 +79,42 @@ class AwardForm(ModelForm):
         self.fields['describe_award'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_describe_award)'})
         self.fields['award_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_award_month_year)'})
 
+class SkillForm(ModelForm):
+    
+    class Meta:
+        model=Skill
+        fields=('skill_name','percentage_you_know')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['skill_name'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_skill_name)'})
+        self.fields['percentage_you_know'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_percentage_you_know)'})
+
+class PublicationForm(ModelForm):
+    
+    class Meta:
+        model=Publication
+        fields=('publication_title','publication_name','publication_date','publication_url','publication_description')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['publication_title'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_publication_title)'})
+        self.fields['publication_name'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_publication_name)'})
+        self.fields['publication_date'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_publication_date)'})
+        self.fields['publication_url'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_publication_url)'})
+        self.fields['publication_description'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_publication_description)'})
+
+class ProjectForm(ModelForm):
+    
+    class Meta:
+        model=Project
+        fields=('project_title','project_description','project_url','project_image','project_start_month_year','project_end_month_year')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['project_title'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_title)'})
+        self.fields['project_description'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_description)'})
+        self.fields['project_url'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_url)'})
+        self.fields['project_image'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_image)'})
+        self.fields['project_start_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_start_month_year)'})
+        self.fields['project_end_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_end_month_year)'})
