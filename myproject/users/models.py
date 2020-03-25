@@ -8,7 +8,7 @@ from uuid import uuid4
 import uuid
 from django.utils.deconstruct import deconstructible
 from django.contrib.auth.models import User
-
+import json
 # Create your models here.
 
 @deconstructible
@@ -91,6 +91,8 @@ class Education(models.Model):
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Education._meta.fields if field.name!='user']
 
+def convertToCamelCase(word):
+    return ' '.join(x.capitalize() or '_' for x in word.split('_'))
 class UserExtraDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image_path = time.strftime('profile/%Y/%m/%d')
@@ -102,3 +104,7 @@ class UserExtraDetails(models.Model):
     user_project_completed = models.IntegerField(default=0)
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in UserExtraDetails._meta.fields if field.name!='user']
+    
+    def get_interest(self):
+        
+        return json.dumps([convertToCamelCase(word)+"." for word in self.user_interest.split(",")])

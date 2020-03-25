@@ -10,7 +10,13 @@ from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.urls import reverse
 
 # Create your views here.
-category_name_model_form_dict={'skill':[Skill,SkillForm,'Skill','skill',SkillForm()],'publication':[Publication,PublicationForm,'Publication','publication',PublicationForm()],'project':[Project,ProjectForm,'Project','project',ProjectForm()]}
+category_name_model_form_dict={'skill':[Skill,SkillForm,'Skill','skill',SkillForm()],\
+    'publication':[Publication,PublicationForm,'Publication','publication',PublicationForm()],\
+    'project':[Project,ProjectForm,'Project','project',ProjectForm()],\
+    'education':[Education,EducationForm,'Education','education',EducationForm()], 
+    'experience':[Experience,ExperienceForm,'Experience','experience',ExperienceForm()], 
+    
+    'award':[Award,AwardForm,'Award','award',AwardForm()]}
 
 def viewProfile(request,user_id):
     print("in view Profile",user_id)
@@ -24,9 +30,9 @@ def viewProfile(request,user_id):
     awards = Award.objects.all().filter(user_id=user.id).order_by('-award_month_year')
     publications = Publication.objects.all().filter(user_id=user.id).order_by('-publication_date')
     projects = Project.objects.all().filter(user_id=user.id).order_by('-project_end_month_year')
-    eductaion = Education.objects.all().filter(user_id=user.id).order_by('-college_end_month_year')
-    user_details=User.objects.get(user_id=user.id)
-    user_extra_details=UserExtraDetails.objects.get(user_id=current_user_id)
+    education = Education.objects.all().filter(user_id=user.id).order_by('-college_end_month_year')
+    user_details=User.objects.get(id=user.id)
+    user_extra_details=UserExtraDetails.objects.get(user_id=user.id)
     return render(request,"userprofile.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':user_id,'user_details':user_details,'user_extra_details':user_extra_details,'education':education})
     
 def userProjects(request,username):
@@ -112,168 +118,168 @@ def deleteCategory(request,category,category_id):
         raise Http404("No "+category_name_model_form_dict[category][2]+" found")
 
 
-@login_required
-def showAward(request):
-    current_user_id=request.user.id
-    user_awards=Award.objects.filter(user_id=current_user_id)
-    fieldlist=[convertToCamelCase(f.name)  for f in Award._meta.get_fields() if f.name!='user']
-    return render(request,"commondisplaypage.html",{'fieldlist':fieldlist,'user_forms':user_awards,'type_of_user_detail':'award','model_name':'Award'})
+# @login_required
+# def showAward(request):
+#     current_user_id=request.user.id
+#     user_awards=Award.objects.filter(user_id=current_user_id)
+#     fieldlist=[convertToCamelCase(f.name)  for f in Award._meta.get_fields() if f.name!='user']
+#     return render(request,"commondisplaypage.html",{'fieldlist':fieldlist,'user_forms':user_awards,'type_of_user_detail':'award','model_name':'Award'})
 
-@login_required
-def deleteAward(request,award_id):
-    try:
-        user_award= get_object_or_404(award, pk=award_id)
-        user_award.delete()
-        return redirect('award')
+# @login_required
+# def deleteAward(request,award_id):
+#     try:
+#         user_award= get_object_or_404(award, pk=award_id)
+#         user_award.delete()
+#         return redirect('award')
 
-    except:
-        raise Http404("No award found")
+#     except:
+#         raise Http404("No award found")
 
 
-@login_required
-def editableAward(request,award_id):
-    to_edit=False
-    current_user_id=request.user.id
-    user_award_form=AwardForm()
-    user_award_data=None
-    if request.method=='POST':
-        user_award=None
-        if award_id!='new':
-            user_award=Award.objects.filter(user_id=current_user_id,id=int(award_id))
-        if user_award:
-            user_award_data=user_award[0]
+# @login_required
+# def editableAward(request,award_id):
+#     to_edit=False
+#     current_user_id=request.user.id
+#     user_award_form=AwardForm()
+#     user_award_data=None
+#     if request.method=='POST':
+#         user_award=None
+#         if award_id!='new':
+#             user_award=Award.objects.filter(user_id=current_user_id,id=int(award_id))
+#         if user_award:
+#             user_award_data=user_award[0]
         
-        if user_award or award_id=='new':
-            user_award_form=AwardForm(data=request.POST,instance=user_award_data)
-            obj=user_award_form.save(commit=False)
+#         if user_award or award_id=='new':
+#             user_award_form=AwardForm(data=request.POST,instance=user_award_data)
+#             obj=user_award_form.save(commit=False)
             
-            if award_id=='new':
-                obj.user_id=current_user_id
-            obj.save()
-            return redirect('award')
-        else:
-            raise Http404("No education found")
+#             if award_id=='new':
+#                 obj.user_id=current_user_id
+#             obj.save()
+#             return redirect('award')
+#         else:
+#             raise Http404("No education found")
             
-    else:
-        if award_id!="new":
-            to_edit=True
-            user_award=Award.objects.filter(user_id=current_user_id,id=int(award_id))
-            if user_award:
-                user_award_data=user_award[0]
-                user_award_form=AwardForm(instance=user_award_data)
-                print(user_award_form)
-            else:
-                raise Http404("No award found")
+#     else:
+#         if award_id!="new":
+#             to_edit=True
+#             user_award=Award.objects.filter(user_id=current_user_id,id=int(award_id))
+#             if user_award:
+#                 user_award_data=user_award[0]
+#                 user_award_form=AwardForm(instance=user_award_data)
+#                 print(user_award_form)
+#             else:
+#                 raise Http404("No award found")
     
-    return render(request,"commoneditableform.html",{'form_requested':user_award_form,'type_of_user_detail':'award','model_name':'Award','isEdit':to_edit})
+#     return render(request,"commoneditableform.html",{'form_requested':user_award_form,'type_of_user_detail':'award','model_name':'Award','isEdit':to_edit})
 
 
 
-@login_required
-def showEducation(request):
-    current_user_id=request.user.id
-    user_educations=Education.objects.filter(user_id=current_user_id)
-    return render(request,"educations.html",{'user_educations':user_educations})
+# @login_required
+# def showEducation(request):
+#     current_user_id=request.user.id
+#     user_educations=Education.objects.filter(user_id=current_user_id)
+#     return render(request,"educations.html",{'user_educations':user_educations})
 
-@login_required
-def deleteEducation(request,education_id):
-    try:
-        user_education= get_object_or_404(Education, pk=exp_id)
-        user_education.delete()
-        return redirect('education')
+# @login_required
+# def deleteEducation(request,education_id):
+#     try:
+#         user_education= get_object_or_404(Education, pk=exp_id)
+#         user_education.delete()
+#         return redirect('education')
 
-    except:
-        raise Http404("No education found")
+#     except:
+#         raise Http404("No education found")
 
 
-@login_required
-def editableEducation(request,education_id):
-    current_user_id=request.user.id
-    user_education_form=EducationForm()
-    user_education_data=None
-    if request.method=='POST':
-        user_education=None
-        if education_id!='new':
-            user_education=Education.objects.filter(user_id=current_user_id,id=int(education_id))
-        if user_education:
-            user_education_data=user_education[0]
+# @login_required
+# def editableEducation(request,education_id):
+#     current_user_id=request.user.id
+#     user_education_form=EducationForm()
+#     user_education_data=None
+#     if request.method=='POST':
+#         user_education=None
+#         if education_id!='new':
+#             user_education=Education.objects.filter(user_id=current_user_id,id=int(education_id))
+#         if user_education:
+#             user_education_data=user_education[0]
         
-        if user_education or education_id=='new':
-            user_education_form=EducationForm(data=request.POST,instance=user_education_data)
-            obj=user_education_form.save(commit=False)
+#         if user_education or education_id=='new':
+#             user_education_form=EducationForm(data=request.POST,instance=user_education_data)
+#             obj=user_education_form.save(commit=False)
             
-            if education_id=='new':
-                obj.user_id=current_user_id
-            obj.save()
-            return redirect('education')
-        else:
-            raise Http404("No Education found")
+#             if education_id=='new':
+#                 obj.user_id=current_user_id
+#             obj.save()
+#             return redirect('education')
+#         else:
+#             raise Http404("No Education found")
             
-    else:
-        if education_id!="new":
-            user_education=Education.objects.filter(user_id=current_user_id,id=int(education_id))
-            if user_education:
-                user_education_data=user_education[0]
-                user_education_form=EducationForm(instance=user_education_data)
-                print(user_education_form)
-            else:
-                raise Http404("No education found")
+#     else:
+#         if education_id!="new":
+#             user_education=Education.objects.filter(user_id=current_user_id,id=int(education_id))
+#             if user_education:
+#                 user_education_data=user_education[0]
+#                 user_education_form=EducationForm(instance=user_education_data)
+#                 print(user_education_form)
+#             else:
+#                 raise Http404("No education found")
     
-    return render(request,"education.html",{'user_education_form':user_education_form})
+#     return render(request,"education.html",{'user_education_form':user_education_form})
 
 
-@login_required
-def showExperience(request):
-    current_user_id=request.user.id
-    user_experiences=Experience.objects.filter(user_id=current_user_id)
+# @login_required
+# def showExperience(request):
+#     current_user_id=request.user.id
+#     user_experiences=Experience.objects.filter(user_id=current_user_id)
 
-    # print (exp_id)
-    return render(request,"experiences.html",{'user_experiences':user_experiences})
+#     # print (exp_id)
+#     return render(request,"experiences.html",{'user_experiences':user_experiences})
 
-@login_required
-def deleteExperience(request,exp_id):
-    try:
-        user_experience= get_object_or_404(Experience, pk=exp_id)
-        user_experience.delete()
-        return redirect('experience')
+# @login_required
+# def deleteExperience(request,exp_id):
+#     try:
+#         user_experience= get_object_or_404(Experience, pk=exp_id)
+#         user_experience.delete()
+#         return redirect('experience')
 
-    except:
-        raise Http404("No experience found")
+#     except:
+#         raise Http404("No experience found")
 
 
-@login_required
-def editableExperience(request,exp_id):
-    current_user_id=request.user.id
-    user_experience_form=ExperienceForm()
-    user_exp_data=None
-    if request.method=='POST':
-        try:
-            user_experience=None
-            if exp_id!='new':
-                user_experience=Experience.objects.filter(user_id=current_user_id,id=int(exp_id))
-            if user_experience:
-                user_exp_data=user_experience[0]
+# @login_required
+# def editableExperience(request,exp_id):
+#     current_user_id=request.user.id
+#     user_experience_form=ExperienceForm()
+#     user_exp_data=None
+#     if request.method=='POST':
+#         try:
+#             user_experience=None
+#             if exp_id!='new':
+#                 user_experience=Experience.objects.filter(user_id=current_user_id,id=int(exp_id))
+#             if user_experience:
+#                 user_exp_data=user_experience[0]
                 
-            user_experience_form=ExperienceForm(data=request.POST,instance=user_exp_data)
-            obj=user_experience_form.save(commit=False)
+#             user_experience_form=ExperienceForm(data=request.POST,instance=user_exp_data)
+#             obj=user_experience_form.save(commit=False)
             
-            if exp_id=='new':
-                obj.user_id=current_user_id
-            obj.save()
-            return redirect('experience')
-        except:
-            raise Http404("No experience found")
+#             if exp_id=='new':
+#                 obj.user_id=current_user_id
+#             obj.save()
+#             return redirect('experience')
+#         except:
+#             raise Http404("No experience found")
 
-    if exp_id!="new":
-        user_experience=Experience.objects.filter(user_id=current_user_id,id=int(exp_id))
-        if user_experience:
-            user_exp_data=user_experience[0]
-            user_experience_form=ExperienceForm(instance=user_exp_data)
-            print(user_experience_form)
-        else:
-            raise Http404("No experience found")
+#     if exp_id!="new":
+#         user_experience=Experience.objects.filter(user_id=current_user_id,id=int(exp_id))
+#         if user_experience:
+#             user_exp_data=user_experience[0]
+#             user_experience_form=ExperienceForm(instance=user_exp_data)
+#             print(user_experience_form)
+#         else:
+#             raise Http404("No experience found")
     
-    return render(request,"experience.html",{'user_experience_form':user_experience_form})
+#     return render(request,"experience.html",{'user_experience_form':user_experience_form})
 
 
 

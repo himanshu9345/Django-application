@@ -70,12 +70,12 @@
           <div class="col-lg-8 col-md-6 ftco-animate d-flex align-items-center">
           	<div class="text text-center">
           		<span class="subheading">Hey! I am</span>
-		  				<h1>Himanshu Patel</h1>
+		  				<h1>{{user_details.first_name}} {{user_details.last_name}}</h1>
 			  				<h2>I'm intrested in
 								  <span
 								     class="txt-rotate"
 								     data-period="2000"
-								     data-rotate='[ "Software Development.","Computer Vision.", "Machine Learning."]'></span>
+								     data-rotate='{{user_extra_details.get_interest}}'></span>
 								</h2>
 							</div>
             </div>
@@ -99,7 +99,7 @@
     			<div class="col-md-6 col-lg-6 d-flex">
     				<div class="img-about img d-flex align-items-stretch">
     					<div class="overlay"></div>
-	    				<div class="img d-flex align-self-stretch align-items-center" style="background-image:url({% static 'images/himanshu.jpg'%});">
+	    				<div class="img d-flex align-self-stretch align-items-center" style="background-image:url({{user_extra_details.user_image.url}});">
 	    				</div>
     				</div>
     			</div>
@@ -109,9 +109,9 @@
 		          	<h1 class="big">About</h1>
 		            <h2 class="mb-4">About Me</h2>
 		            <ul class="about-info mt-4 px-md-0 px-2">
-		            	<li class="d-flex"><span>Name:</span> <span>Himanshu Patel</span></li>
-		            	<li class="d-flex"><span>Address:</span> <span>Jersey City, NJ</span></li>
-						<li class="d-flex"><span>Email:</span> <span>hbp53@njit.edu</span></li>
+		            	<li class="d-flex"><span>Name:</span> <span>{{user_details.first_name}} {{user_details.last_name}}</span></li>
+		            	<li class="d-flex"><span>Address:</span> <span>{{user_extra_details.user_address}}</span></li>
+						<li class="d-flex"><span>Email:</span> <span>{{user_details.email}}</span></li>
 		            	<!-- <li class="d-flex"><span>Hobbies:</span><span></span></li> -->
 						
 		            </ul>
@@ -120,10 +120,10 @@
 	          <div class="counter-wrap ftco-animate d-flex mt-md-3">
               <div class="text">
               	<p class="mb-4">
-	                <span class="number" data-number="17">0</span>
+	                <span class="number" data-number="{{user_extra_details.user_project_completed}}">0</span>
 	                <span>Project completed</span>
                 </p>
-                <p><a href="{% static 'Resume/Resume_Himanshu_Patel.pdf' %}" class="btn btn-primary py-3 px-3">Download CV</a></p>
+                <p><a href="{{user_extra_details.user_resume.url}}" class="btn btn-primary py-3 px-3">Download CV</a></p>
               </div>
 	          </div>
 	        </div>
@@ -171,27 +171,20 @@
 					</div>
 					<div class="col-md-9">
 					  <div id="page-1" class= "page one">
-					  	<h2 class="heading">Education</h2>
+						  <h2 class="heading">Education</h2>
+						  {%for college in education%}
 					    <div class="resume-wrap d-flex ftco-animate">
 					    	<div class="icon d-flex align-items-center justify-content-center">
 					    		<span class="flaticon-ideas"></span>
 					    	</div>
 					    	<div class="text pl-3">
-		    					<span class="date">2018-2020</span>
-		    					<h2>Master of Science in Computer Science</h2>
-		    					<span class="position">New Jersey Institute of Technology</span>
+		    					<span class="date">{{college.college_start_month_year}}-{{college.college_end_month_year}}</span>
+		    					<h2>{{college.degree_name}} in {{college.major_name}}</h2>
+		    					<span class="position">{{college.college_name}}</span>
 	    					</div>
-	    				</div>
-	    				<div class="resume-wrap d-flex ftco-animate">
-	    					<div class="icon d-flex align-items-center justify-content-center">
-					    		<span class="flaticon-ideas"></span>
-					    	</div>
-					    	<div class="text pl-3">
-								<span class="date">2013-2017</span>
-		    					<h2>Bachelor of Technology in Information and Communication Technology</h2>
-		    					<span class="position">Dhirubhai Ambani Institute of Information and Communication Technology</span>
-		    				</div>
-	    				</div>
+						</div>
+						{%endfor%}
+	    				
 					  </div>
 					 
 					  <div id="page-2" class= "page two">
@@ -346,7 +339,7 @@
           		</div>
           		<div>
 	          		<h3 class="mb-4">Email Address</h3>
-		            <p><a href="mailto:hb53@njit.edu">hbp53@njit.edu</a></p>
+		            <p><a href="mailto:{{user_details.email}}">{{user_details.email}}</a></p>
 		          </div>
 	          </div>
           </div>
@@ -388,7 +381,7 @@
           </div>
 
           <div class="col-md-6 d-flex">
-          	<div class="img" style="background-image: url({% static 'images/himanshu3.jpg'%});"></div>
+          	<div class="img" style="background-image: url({{user_extra_details.user_image.url}});"></div>
           </div>
         </div>
       </div>
@@ -440,7 +433,7 @@
             	<div class="block-23 mb-3">
 	              <ul>
 	                
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">hbp53@njit.edu</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">{{user_details.email}}</span></a></li>
 	              </ul>
 	            </div>
             </div>

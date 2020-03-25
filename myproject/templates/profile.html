@@ -16,8 +16,9 @@
 
 	  <div class="collapse navbar-collapse" id="ftco-nav">
 		<ul class="navbar-nav nav ml-auto">
+      <li class="nav-item"><a href="profile/{{request.user}}" class="nav-link"><span>Preview Portfolio</span></a></li>
       <li class="nav-item"><a href="accounts/logout" class="nav-link"><span>Logout</span></a></li>
-		  <li class="nav-item"><a href="/profile/{{request.user}}" class="nav-link"><span>Preview Portfolio</span></a></li>
+      
       
           
 		</ul>
@@ -39,9 +40,8 @@
             <img src="{{user_details_form.user_image.value.url}}"  style="width:256px;height:256px;" alt="Italian Trulli">
           </div>
           <div class="col no-gutters justify-content-center pb-2">
-            <div class="col-md-12 heading-section text-center">
-                <h1 class="big big-2">Profile</h1>
-                <h2 class="mb-4">User Resume</h2>
+            <div class="col-md-12  text-center">
+                <h2 class="mb-9">User Resume</h2>
             </div>
             <div class="col" style="text-align: center;">
             <p>Please check your resume <a target="_blank" href="{{user_details_form.user_resume.value.url}}">here</a>.</p>
@@ -115,23 +115,23 @@
             <h2 class="mb-4">Add/Edit</h2>
         </div>
        
-        <div class="col page" style="text-align: center;">
-          <h3 class="page heading"><a href="education" target="_blank">Education</a></h3>
+        <div class="col " style="text-align: center;">
+          <h3 class="heading"><a href="education" target="_blank">Education</a></h3>
         </div>
-        <div class="col page" style="text-align: center;">
-          <h3 class="page heading"><a href="experience" target="_blank">Experiences</a></h3>
+        <div class="col " style="text-align: center;">
+          <h3 class="heading"><a href="experience" target="_blank">Experience</a></h3>
         </div>
-        <div class="col page" style="text-align: center;">
-          <h2 class="page heading"><a href="project" target="_blank">Projects</a></h2>
+        <div class="col " style="text-align: center;">
+          <h2 class="heading"><a href="project" target="_blank">Project</a></h2>
         </div>
-        <div class="col page" style="text-align: center;">
-          <h2 class="page heading"><a href="skill" target="_blank">Skills</a></h2>
+        <div class="col " style="text-align: center;">
+          <h2 class="heading"><a href="skill" target="_blank">Skill</a></h2>
         </div>
-        <div class="col page" style="text-align: center;">
-          <h2 class="page heading"><a href="publication" target="_blank">Publications</a></h2>
+        <div class="col " style="text-align: center;">
+          <h2 class="heading"><a href="publication" target="_blank">Publication</a></h2>
         </div>
-        <div class="col page" style="text-align: center;">
-          <h2 class="page heading"><a href="award" target="_blank">Awards</a></h2>
+        <div class="col " style="text-align: center;">
+          <h2 class="heading"><a href="award" target="_blank">Award</a></h2>
         </div>
 
     </div>
