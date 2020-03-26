@@ -12,7 +12,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from dotenv import load_dotenv
 import os
-
+load_dotenv()
 # Create your views here.
 category_name_model_form_dict={'skill':[Skill,SkillForm,'Skill','skill',SkillForm()],\
     'publication':[Publication,PublicationForm,'Publication','publication',PublicationForm()],\
@@ -22,6 +22,34 @@ category_name_model_form_dict={'skill':[Skill,SkillForm,'Skill','skill',SkillFor
     'contactdetails':[ContactDetails,ContactDetailsForm,'ContactDetails','contactdetails',ContactDetailsForm()], 
     
     'award':[Award,AwardForm,'Award','award',AwardForm()]}
+
+def index(request):
+    username=os.getenv('MY_ID')
+    user=None
+    try:
+        user= get_object_or_404(User, username=username)
+    except:
+        raise Http404("User not found")
+    exps = Experience.objects.all().filter(user_id=user.id).order_by('-end_month_year')
+    skills = Skill.objects.all().filter(user_id=user.id).order_by('-percentage_you_know')
+    awards = Award.objects.all().filter(user_id=user.id).order_by('-award_month_year')
+    publications = Publication.objects.all().filter(user_id=user.id).order_by('-publication_date')
+    projects = Project.objects.all().filter(user_id=user.id).order_by('-project_end_month_year')
+    education = Education.objects.all().filter(user_id=user.id).order_by('-college_end_month_year')
+    contactdetails = ContactDetails.objects.all().filter(user_id=user.id)
+    user_details=User.objects.get(id=user.id)
+    user_extra_details=UserExtraDetails.objects.get(user_id=user.id)
+    return render(request,"adminprofile.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
+
+def projects(request):
+    app_url = "/"
+    username=os.getenv('MY_ID')
+    user= get_object_or_404(User, username=username)
+    projects = Project.objects.all().filter(user_id=user.id).order_by('-project_end_month_year')
+    print(app_url,"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+    return render(request,"adminprojects.html",{'app_url': app_url,'projects':projects})
+
+
 
 def viewProfile(request,username):
     print("in view Profile",username)

@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Projects</title>
+    <meta charset="utf-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.css'%}">
+    
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css'%}">
+
+    <link rel="stylesheet" href="{% static 'css/aos.css'%}">
+
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css'%}">
+    
+    <link rel="stylesheet" href="{% static 'css/flaticon.css'%}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+  </head>
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+	  
+	  
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+	    <div class="container">
+	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav nav ml-auto">
+	          <li class="nav-item"><a href="{{app_url}}#home-section" class="nav-link"><span>Home</span></a></li>
+	          <li class="nav-item"><a href="{{app_url}}#about-section" class="nav-link"><span>About</span></a></li>
+	          <li class="nav-item"><a href="{{app_url}}#resume-section" class="nav-link"><span>Resume</span></a></li>
+	          <li class="nav-item"><a href="{{app_url}}#projects-section" class="nav-link"><span>Projects</span></a></li>
+            <li class="nav-item"><a href="{{app_url}}#contact-section" class="nav-link"><span>Contact</span></a></li>
+            <li class="nav-item"><a href="{{app_url}}" class="nav-link"><span>Profile</span></a></li>
+            
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+	  <div class="hero-wrap js-fullheight">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
+          <div class="col-lg-10 ftco-animate d-flex align-items-center">
+          	<div class="text text-center">
+          		<h1 class="mb-3 bread">Projects</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+		
+		<section class="ftco-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 ftco-animate">
+            {%for project in projects%}
+            <section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="{{project.id}}">
+              <h2 class="mb-3"><a href="{{project.project_url}}">{{project.project_title}}</a></h2>
+              <div >
+              {{project.project_start_month_year}}-{{project.project_end_month_year}}
+              </div><br>
+              <p>{{project.project_description}}<p>
+                <img src="{{project.project_image.url}}" alt="" class="img-fluid">
+              </p>
+             <br>
+            </section>
+            {%endfor%}
+            
+            
+
+
+           
+
+          </div> <!-- .col-md-8 -->
+          <div class="col-lg-4 sidebar ftco-animate">
+            <div class="sidebar-box">
+              <form action="#" class="search-form">
+                <div class="form-group">
+                  <span class="icon icon-search"></span>
+                  <input type="text" class="form-control" placeholder="Search...">
+                </div>
+              </form>
+            </div>
+            
+
+            
+
+            <!-- <div class="sidebar-box ftco-animate">
+              <h3 class="heading-sidebar">Tag Cloud</h3>
+              <div class="tagcloud">
+                <a href="#" class="tag-cloud-link">house</a>
+                <a href="#" class="tag-cloud-link">office</a>
+                <a href="#" class="tag-cloud-link">building</a>
+                <a href="#" class="tag-cloud-link">land</a>
+                <a href="#" class="tag-cloud-link">table</a>
+                <a href="#" class="tag-cloud-link">interior</a>
+                <a href="#" class="tag-cloud-link">exterior</a>
+                <a href="#" class="tag-cloud-link">industrial</a>
+              </div>
+            </div> -->
+
+          </div>
+
+        </div>
+      </div>
+    </section> <!-- .section -->
+
+    <footer class="ftco-footer ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+         
+         
+   
+          
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+  
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="{% static 'js/jquery.min.js'%}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js'%}"></script>
+  <script src="{% static 'js/popper.min.js'%}"></script>
+  <script src="{% static 'js/bootstrap.min.js'%}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js'%}"></script>
+  <script src="{% static 'js/jquery.waypoints.min.js'%}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js'%}"></script>
+  <script src="{% static 'js/owl.carousel.min.js'%}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js'%}"></script>
+  <script src="{% static 'js/aos.js'%}"></script>
+  <script src="{% static 'js/jquery.animateNumber.min.js'%}"></script>
+  <script src="{% static 'js/scrollax.min.js'%}"></script>
+  
+  <script src="{% static 'js/main.js'%}"></script>
+    
+  </body>
+</html>

@@ -102,11 +102,11 @@ class UserExtraDetails(models.Model):
     image_path = time.strftime('files/%Y/%m/%d')
     user_resume = models.FileField(upload_to=PathAndRename(image_path),default="resume.pdf")
     user_project_completed = models.IntegerField(default=0)
+    
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in UserExtraDetails._meta.fields if field.name!='user']
     
     def get_interest(self):
-        
         return json.dumps([convertToCamelCase(word)+"." for word in self.user_interest.split(",")])
 
 class ContactDetails(models.Model):

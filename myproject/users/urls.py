@@ -18,7 +18,11 @@ urlpatterns = [
     path("user/<str:category>/<str:category_id>",views.editableCategory,name="editablecategory"),
     path("user/<str:category>/<str:category_id>/delete/",views.deleteCategory,name="deletecategory"),
     path("profile/<str:username>/projects/",views.userProjects,name="userprojects"),
-    path("sendemail/<str:username>",views.sendemail,name="sendemail")
+    path("sendemail/<str:username>",views.sendemail,name="sendemail"),
+    path("",views.index,name="index"),
+    path("projects",views.projects,name="projects"),
+
+
 
 
 

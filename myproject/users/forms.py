@@ -8,13 +8,14 @@ class UserExtraDetailsForm(ModelForm):
     
     class Meta:
         model=UserExtraDetails
+        
         fields=('user_interest','user_address','user_project_completed','user_image','user_resume')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['user_interest'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_user_interest)'})
-        self.fields['user_address'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_user_address)'})
-        self.fields['user_project_completed'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_user_project_completed)'})
+        self.fields['user_interest'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_user_interest)'})
+        self.fields['user_address'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_user_address)'})
+        self.fields['user_project_completed'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_user_project_completed)'})
         self.fields['user_image'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_user_image)'})
         self.fields['user_resume'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_user_resume)'})
 
