@@ -38,12 +38,18 @@ class UserForm(UserChangeForm):
         self.fields['last_name'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_last_name)'})
         self.fields['username'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_username)'})
         self.fields['email'].widget.attrs.update({'class': 'form-control','onClick':'myFunction()','readonly':'readonly','oninput':'checkInputChanged(id_email)'})
-    
+
+class DateInput(forms.DateInput):
+    input_type='date' 
 class ExperienceForm(ModelForm):
     
     class Meta:
         model=Experience
         fields=('company','position','desc','start_month_year','end_month_year')
+        widgets = {
+            'start_month_year': DateInput(),
+            'end_month_year': DateInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -58,6 +64,10 @@ class EducationForm(ModelForm):
     class Meta:
         model=Education
         fields=('college_name','degree_name','major_name','college_start_month_year','college_end_month_year')
+        widgets = {
+            'college_start_month_year': DateInput(),
+            'college_end_month_year': DateInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -72,6 +82,9 @@ class AwardForm(ModelForm):
     class Meta:
         model=Award
         fields=('award_name','award_place','describe_award','award_month_year')
+        widgets = {
+            'award_month_year': DateInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -96,6 +109,9 @@ class PublicationForm(ModelForm):
     class Meta:
         model=Publication
         fields=('publication_title','publication_name','publication_date','publication_url','publication_description')
+        widgets = {
+            'publication_date': DateInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -110,6 +126,10 @@ class ProjectForm(ModelForm):
     class Meta:
         model=Project
         fields=('project_title','project_description','project_url','project_image','project_start_month_year','project_end_month_year')
+        widgets = {
+            'project_start_month_year': DateInput(),
+            'project_end_month_year': DateInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

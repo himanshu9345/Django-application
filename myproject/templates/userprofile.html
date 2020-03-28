@@ -178,7 +178,7 @@
 					    		<span class="flaticon-ideas"></span>
 					    	</div>
 					    	<div class="text pl-3">
-		    					<span class="date">{{college.college_start_month_year}}-{{college.college_end_month_year}}</span>
+		    					<span class="date">{{college.startMonth}}, {{college.college_start_month_year.year}}-{{college.endMonth}}, {{college.college_end_month_year.year}}</span>
 		    					<h2>{{college.degree_name}} in {{college.major_name}}</h2>
 		    					<span class="position">{{college.college_name}}</span>
 	    					</div>
@@ -196,7 +196,7 @@
 					    		<span class="flaticon-ideas"></span>
 					    	</div>
 					    	<div class="text pl-3">
-		    					<span class="date">{{experience.start_month_year}}-{{experience.end_month_year}}</span>
+		    					<span class="date">{{experience.startMonth}}, {{experience.start_month_year.year}}-{{experience.endMonth}}, {{experience.end_month_year.year}}</span>
 		    					<h2>{{experience.position}}</h2>
 		    					<span class="position">{{experience.company}}</span>
 								{%for dec in experience.split_lines%}
@@ -297,7 +297,13 @@
         </div>
     		<div class="row no-gutters">
 				{% for project in projects %}
+				{%if isAdmin%}
+				<a  href="{%url 'projects'%}#{{project.id}}">
+
+				{%else%}
 				<a  href="{%url 'userprojects' username=username%}#{{project.id}}">
+
+				{%endif%}
 					
 				<div class="col-md-4" >
     				<div action="getInfo" class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({{project.project_image.url}});">

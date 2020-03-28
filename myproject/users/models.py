@@ -35,13 +35,22 @@ class Experience(models.Model):
     company = models.CharField(max_length=50)
     position = models.CharField(max_length=50)
     desc = models.TextField()
-    start_month_year = models.CharField(max_length=20)
-    end_month_year =models.CharField(max_length=20)
+    start_month_year = models.DateField()
+    end_month_year =models.DateField()
+
+    def startMonth(self):
+        return self.start_month_year.strftime("%b")
+    
+    def endMonth(self):
+        return self.end_month_year.strftime("%b")
+
 
     def split_lines(self):
         return self.desc.split("#")
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Experience._meta.fields if field.name!='user']
+    
+    
     
 class Skill(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -55,7 +64,7 @@ class Award(models.Model):
     award_name=models.CharField(max_length=100)
     award_place=models.CharField(max_length=100)
     describe_award = models.TextField()
-    award_month_year = models.CharField(max_length=20)
+    award_month_year = models.DateField()
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Award._meta.fields if field.name!='user']
 
@@ -76,20 +85,30 @@ class Project(models.Model):
     project_url = models.URLField()
     image_path = time.strftime('pics/%Y/%m/%d')
     project_image = models.ImageField(upload_to=PathAndRename(image_path))
-    project_start_month_year = models.CharField(max_length=20)
-    project_end_month_year =models.CharField(max_length=20)
+    project_start_month_year = models.DateField()
+    project_end_month_year =models.DateField()
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Project._meta.fields if field.name!='user']
+    def startMonth(self):
+        return self.project_start_month_year.strftime("%b")
+    
+    def endMonth(self):
+        return self.project_end_month_year.strftime("%b")
 
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     college_name = models.CharField(max_length=200)
     degree_name = models.CharField(max_length=200)
     major_name = models.CharField(max_length=200)
-    college_start_month_year = models.CharField(max_length=20)
-    college_end_month_year =models.CharField(max_length=20)
+    college_start_month_year = models.DateField()
+    college_end_month_year =models.DateField()
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Education._meta.fields if field.name!='user']
+    def startMonth(self):
+        return self.college_start_month_year.strftime("%b")
+    
+    def endMonth(self):
+        return self.college_end_month_year.strftime("%b")
 
 def convertToCamelCase(word):
     return ' '.join(x.capitalize() or '_' for x in word.split('_'))

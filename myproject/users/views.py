@@ -26,6 +26,7 @@ category_name_model_form_dict={'skill':[Skill,SkillForm,'Skill','skill',SkillFor
 def index(request):
     username=os.getenv('MY_ID')
     user=None
+    isAdmin=True
     try:
         user= get_object_or_404(User, username=username)
     except:
@@ -39,19 +40,20 @@ def index(request):
     contactdetails = ContactDetails.objects.all().filter(user_id=user.id)
     user_details=User.objects.get(id=user.id)
     user_extra_details=UserExtraDetails.objects.get(user_id=user.id)
-    return render(request,"adminprofile.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
+    return render(request,"userprofile.html",{'isAdmin':isAdmin,'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
 
 def projects(request):
     app_url = "/"
     username=os.getenv('MY_ID')
     user= get_object_or_404(User, username=username)
     projects = Project.objects.all().filter(user_id=user.id).order_by('-project_end_month_year')
-    print(app_url,"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-    return render(request,"adminprojects.html",{'app_url': app_url,'projects':projects})
+    print(app_url,"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",projects)
+    return render(request,"projects.html",{'app_url': app_url,'projects':projects})
 
 
 
 def viewProfile(request,username):
+    isAdmin=False
     print("in view Profile",username)
     user=None
     try:
@@ -67,7 +69,7 @@ def viewProfile(request,username):
     contactdetails = ContactDetails.objects.all().filter(user_id=user.id)
     user_details=User.objects.get(id=user.id)
     user_extra_details=UserExtraDetails.objects.get(user_id=user.id)
-    return render(request,"userprofile.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
+    return render(request,"userprofile.html",{'isAdmin':isAdmin,'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
     
 def userProjects(request,username):
     user=None
