@@ -40,7 +40,7 @@ def index(request):
     contactdetails = ContactDetails.objects.all().filter(user_id=user.id)
     user_details=User.objects.get(id=user.id)
     user_extra_details=UserExtraDetails.objects.get(user_id=user.id)
-    return render(request,"userprofile.html",{'isAdmin':isAdmin,'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
+    return render(request,"userprofile.html",{'isAdmin':isAdmin,'experiences':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
 
 def projects(request):
     app_url = "/"
@@ -69,7 +69,7 @@ def viewProfile(request,username):
     contactdetails = ContactDetails.objects.all().filter(user_id=user.id)
     user_details=User.objects.get(id=user.id)
     user_extra_details=UserExtraDetails.objects.get(user_id=user.id)
-    return render(request,"userprofile.html",{'isAdmin':isAdmin,'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
+    return render(request,"userprofile.html",{'isAdmin':isAdmin,'experiences':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects,'username':username,'user_details':user_details,'user_extra_details':user_extra_details,'education':education,'contactdetails':contactdetails})
     
 def userProjects(request,username):
     user=None
@@ -78,6 +78,7 @@ def userProjects(request,username):
         user= get_object_or_404(User, username=username)
     except:
         raise Http404("User not found")
+    
     projects = Project.objects.all().filter(user_id=user.id).order_by('-project_end_month_year')
     
     # print(app_url,"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")

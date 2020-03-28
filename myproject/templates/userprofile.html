@@ -3,26 +3,26 @@
 <html lang="en">
 	
   <head>
-    <title>Himanshu Portfolio</title>
+	<title>Himanshu Portfolio</title>
 	<meta charset="utf-8">
 	<!-- <base href="/"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css'%}">
-    <link rel="stylesheet" href="{% static 'css/animate.css'%}">
-    
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css'%}">
-    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css'%}">
-    <link rel="stylesheet" href="{% static 'css/magnific-popup.css'%}">
+	<link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/animate.css'%}">
+	
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css'%}">
 
-    <link rel="stylesheet" href="{% static 'css/aos.css'%}">
+	<link rel="stylesheet" href="{% static 'css/aos.css'%}">
 
-    <link rel="stylesheet" href="{% static 'css/ionicons.min.css'%}">
-    
-    <link rel="stylesheet" href="{% static 'css/flaticon.css'%}">
-    <link rel="stylesheet" href="{% static 'css/icomoon.css'%}">
+	<link rel="stylesheet" href="{% static 'css/ionicons.min.css'%}">
+	
+	<link rel="stylesheet" href="{% static 'css/flaticon.css'%}">
+	<link rel="stylesheet" href="{% static 'css/icomoon.css'%}">
 	<link rel="stylesheet" href="{% static 'css/style.css'%}">
   </head>
   
@@ -30,19 +30,24 @@
 	
 	
 	
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
-	    <div class="container">
-	      <!-- <a class="navbar-brand" href="index.html"><span>R</span>onaldo</a> -->
-	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+		<div class="container">
+		  <!-- <a class="navbar-brand" href="index.html"><span>R</span>onaldo</a> -->
+		  <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="oi oi-menu"></span> Menu
+		  </button>
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav nav ml-auto">
-	          <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
-	          <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-	          <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
-	          <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+		  <div class="collapse navbar-collapse" id="ftco-nav">
+			<ul class="navbar-nav nav ml-auto">
+			  <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
+			  <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
+			  {%if education  or publications or experiences or skills or awards%}
+			  <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
+			  {%endif%}
+			  {%if projects%}
+			  <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+			  {%endif%}
+			  
 			  <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
 			  {% if user.is_authenticated %}
 			  <li class="nav-item"><a href="{% url 'profile' %}" class="nav-link"><span>Edit Profile</span></a></li>
@@ -56,158 +61,179 @@
 
 				<li class="nav-item"><a href="/accounts/register" class="nav-link"><span>Need Portfolio?</span></a></li>
 				{% endif %}
-	        </ul>
-	      </div>
-	    </div>
+			</ul>
+		  </div>
+		</div>
 	  </nav>
 	  
 	 
 	 
 	  <section class="hero-wrap js-fullheight">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
-          <div class="col-lg-8 col-md-6 ftco-animate d-flex align-items-center">
-          	<div class="text text-center">
-          		<span class="subheading">Hey! I am</span>
+	  <div class="overlay"></div>
+	  <div class="container">
+		<div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
+		  <div class="col-lg-8 col-md-6 ftco-animate d-flex align-items-center">
+		  	<div class="text text-center">
+		  		<span class="subheading">Hey! I am</span>
 		  				<h1>{{user_details.first_name}} {{user_details.last_name}}</h1>
 			  				<h2>I'm intrested in
 								  <span
-								     class="txt-rotate"
-								     data-period="2000"
-								     data-rotate='{{user_extra_details.get_interest}}'></span>
+									 class="txt-rotate"
+									 data-period="2000"
+									 data-rotate='{{user_extra_details.get_interest}}'></span>
 								</h2>
 							</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mouse">
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="mouse">
 				<a href="#" class="mouse-icon">
 					<div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
 				</a>
 			</div>
-    </section>
+	</section>
 	
 	
 	<!-- <script>
 		myFun();
 	</script> -->
-    <section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
-    	<div class="container">
-    		<div class="row d-flex no-gutters">
-    			<div class="col-md-6 col-lg-6 d-flex">
-    				<div class="img-about img d-flex align-items-stretch">
-    					<div class="overlay"></div>
-	    				<div class="img d-flex align-self-stretch align-items-center" style="background-image:url({{user_extra_details.user_image.url}});">
-	    				</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-6 pl-md-5 py-5">
-    				<div class="row justify-content-start pb-3">
-		          <div class="col-md-12 heading-section ftco-animate">
-		          	<h1 class="big">About</h1>
-		            <h2 class="mb-4">About Me</h2>
-		            <ul class="about-info mt-4 px-md-0 px-2">
-		            	<li class="d-flex"><span>Name:</span> <span>{{user_details.first_name}} {{user_details.last_name}}</span></li>
-		            	<li class="d-flex"><span>Address:</span> <span>{{user_extra_details.user_address}}</span></li>
+	<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
+		<div class="container">
+			<div class="row d-flex no-gutters">
+				<div class="col-md-6 col-lg-6 d-flex">
+					<div class="img-about img d-flex align-items-stretch">
+						<div class="overlay"></div>
+						<div class="img d-flex align-self-stretch align-items-center" style="background-image:url({{user_extra_details.user_image.url}});">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-6 pl-md-5 py-5">
+					<div class="row justify-content-start pb-3">
+				  <div class="col-md-12 heading-section ftco-animate">
+				  	<h1 class="big">About</h1>
+					<h2 class="mb-4">About Me</h2>
+					<ul class="about-info mt-4 px-md-0 px-2">
+						<li class="d-flex"><span>Name:</span> <span>{{user_details.first_name}} {{user_details.last_name}}</span></li>
+						<li class="d-flex"><span>Address:</span> <span>{{user_extra_details.user_address}}</span></li>
 						<li class="d-flex"><span>Email:</span> <span>{{user_details.email}}</span></li>
-		            	<!-- <li class="d-flex"><span>Hobbies:</span><span></span></li> -->
+						<!-- <li class="d-flex"><span>Hobbies:</span><span></span></li> -->
 						
-		            </ul>
-		          </div>
-		        </div>
-	          <div class="counter-wrap ftco-animate d-flex mt-md-3">
-              <div class="text">
-              	<p class="mb-4">
-	                <span class="number" data-number="{{user_extra_details.user_project_completed}}">0</span>
-	                <span>Project completed</span>
-                </p>
-                <p><a href="{{user_extra_details.user_resume.url}}" class="btn btn-primary py-3 px-3">Download CV</a></p>
-              </div>
-	          </div>
-	        </div>
-        </div>
-    	</div>
-    </section>
+					</ul>
+				  </div>
+				</div>
+			  <div class="counter-wrap ftco-animate d-flex mt-md-3">
+			  <div class="text">
+			  	<p class="mb-4">
+					<span class="number" data-number="{{user_extra_details.user_project_completed}}">0</span>
+					<span>Project completed</span>
+				</p>
+				<p><a href="{{user_extra_details.user_resume.url}}" class="btn btn-primary py-3 px-3">Download CV</a></p>
+			  </div>
+			  </div>
+			</div>
+		</div>
+		</div>
+	</section>
 
-    <!-- <section class="ftco-section ftco-partner">
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="{% static 'images/partner-1.png'%}" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="{% static 'images/partner-2.png'%}"" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="{% static 'images/partner-3.png'%}"" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="{% static 'images/partner-4.png'%}"" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="{% static 'images/partner-5.png'%}"" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    		</div>
-    	</div>
-    </section> -->
+	<!-- <section class="ftco-section ftco-partner">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm ftco-animate">
+					<a href="#" class="partner"><img src="{% static 'images/partner-1.png'%}" class="img-fluid" alt="Colorlib Template"></a>
+				</div>
+				<div class="col-sm ftco-animate">
+					<a href="#" class="partner"><img src="{% static 'images/partner-2.png'%}"" class="img-fluid" alt="Colorlib Template"></a>
+				</div>
+				<div class="col-sm ftco-animate">
+					<a href="#" class="partner"><img src="{% static 'images/partner-3.png'%}"" class="img-fluid" alt="Colorlib Template"></a>
+				</div>
+				<div class="col-sm ftco-animate">
+					<a href="#" class="partner"><img src="{% static 'images/partner-4.png'%}"" class="img-fluid" alt="Colorlib Template"></a>
+				</div>
+				<div class="col-sm ftco-animate">
+					<a href="#" class="partner"><img src="{% static 'images/partner-5.png'%}"" class="img-fluid" alt="Colorlib Template"></a>
+				</div>
+			</div>
+		</div>
+	</section> -->
 	
-    <section class="ftco-section ftco-no-pb goto-here" id="resume-section">
+	<section class="ftco-section ftco-no-pb goto-here" id="resume-section">
 		
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-3">
-				    <nav id="navi">
-					    <ul>
-					      <li><a href="#page-1">Education</a></li>
-					      <li><a href="#page-2">Experience</a></li>
-						  <li><a href="#page-3">Skills</a></li>
-						  <li><a href="#page-4">Awards</a></li>
-					      <li><a href="#page-5">Publications</a></li>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<nav id="navi">
+						<ul>
 						  
-					    </ul>
+						  {%if education%}
+						
+						  <li><a href="#page-1">Education</a></li>
+						  {%endif%}
+						  {%if experiences %}
+						  
+						  <li><a href="#page-2">Experience</a></li>
+						  {%endif%}
+						  {%if skills%}
+						  
+						  <li><a href="#page-3">Skills</a></li>
+						  {%endif%}
+						  {%if awards%}
+
+						  <li><a href="#page-4">Awards</a></li>
+						  {%endif%}
+
+						  {%if publications%}
+						  <li><a href="#page-5">Publications</a></li>
+						  {%endif%}
+						  
+						</ul>
 					  </nav>
 					</div>
 					<div class="col-md-9">
+
+					  {%if education%}
 					  <div id="page-1" class= "page one">
 						  <h2 class="heading">Education</h2>
 						  {%for college in education%}
-					    <div class="resume-wrap d-flex ftco-animate">
-					    	<div class="icon d-flex align-items-center justify-content-center">
-					    		<span class="flaticon-ideas"></span>
-					    	</div>
-					    	<div class="text pl-3">
-		    					<span class="date">{{college.startMonth}}, {{college.college_start_month_year.year}}-{{college.endMonth}}, {{college.college_end_month_year.year}}</span>
-		    					<h2>{{college.degree_name}} in {{college.major_name}}</h2>
-		    					<span class="position">{{college.college_name}}</span>
-	    					</div>
+						<div class="resume-wrap d-flex ftco-animate">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-ideas"></span>
+							</div>
+							<div class="text pl-3">
+								<span class="date">{{college.startMonth}}, {{college.college_start_month_year.year}}-{{college.endMonth}}, {{college.college_end_month_year.year}}</span>
+								<h2>{{college.degree_name}} in {{college.major_name}}</h2>
+								<span class="position">{{college.college_name}}</span>
+							</div>
 						</div>
 						{%endfor%}
-	    				
+						
 					  </div>
-					 
+					  {%endif%}
+
+					  {%if experiences%}
 					  <div id="page-2" class= "page two">
 						  <h2 class="heading">Experience</h2>
-					  {% for experience in exps%}
+					  {% for experience in experiences%}
 						  
-					    <div class="resume-wrap d-flex ftco-animate">
-					    	<div class="icon d-flex align-items-center justify-content-center">
-					    		<span class="flaticon-ideas"></span>
-					    	</div>
-					    	<div class="text pl-3">
-		    					<span class="date">{{experience.startMonth}}, {{experience.start_month_year.year}}-{{experience.endMonth}}, {{experience.end_month_year.year}}</span>
-		    					<h2>{{experience.position}}</h2>
-		    					<span class="position">{{experience.company}}</span>
+						<div class="resume-wrap d-flex ftco-animate">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-ideas"></span>
+							</div>
+							<div class="text pl-3">
+								<span class="date">{{experience.startMonth}}, {{experience.start_month_year.year}}-{{experience.endMonth}}, {{experience.end_month_year.year}}</span>
+								<h2>{{experience.position}}</h2>
+								<span class="position">{{experience.company}}</span>
 								{%for dec in experience.split_lines%}
 									<li style="text-align: justify;">{{dec}}</li>
 								{%endfor%}
-		    				</div>
+							</div>
 						</div>
 						{%endfor%}
 					  </div>
+					  {%endif%}
 
-
+					  {%if skills%}
 					  <div id="page-3" class= "page three">
 					  	<h2 class="heading">Skills</h2>
 					  	
@@ -219,7 +245,7 @@
 										<div class="progress">
 										 	<div class="progress-bar color-2" role="progressbar" aria-valuenow="{{skill.percentage_you_know}}"
 										  	aria-valuemin="0" aria-valuemax="100" style="width:{{skill.percentage_you_know}}%">
-										    <span>{{skill.percentage_you_know}}%</span>
+											<span>{{skill.percentage_you_know}}%</span>
 										  	</div>
 										</div>
 									</div>
@@ -229,47 +255,53 @@
 								
 					  	</div>
 					  </div>
+					  {%endif%}
+
+					  {%if awards%}
 					  <div id="page-4" class= "page four">
 						<h2 class="heading">Awards</h2>
 						{%for award in awards%}
-					    <div class="resume-wrap d-flex ftco-animate">
-					    	<div class="icon d-flex align-items-center justify-content-center">
-					    		<span class="flaticon-ideas"></span>
-					    	</div>
-					    	<div class="text pl-3">
-		    					<span class="date">{{award.award_month_year}}</span>
-		    					<h2>{{award.award_name}}</h2>
-		    					<span class="position">{{award.award_place}}</span>
-		    					<p  style="text-align: justify;">{{award.describe_award}}</p>
-	    					</div>
+						<div class="resume-wrap d-flex ftco-animate">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-ideas"></span>
+							</div>
+							<div class="text pl-3">
+								<span class="date">{{award.award_month_year}}</span>
+								<h2>{{award.award_name}}</h2>
+								<span class="position">{{award.award_place}}</span>
+								<p  style="text-align: justify;">{{award.describe_award}}</p>
+							</div>
 						</div>
 						{%endfor%}
-	    				
 					  </div>
+					  {%endif%}
+
 					  
+					  {%if publications%}
 					  <div id="page-5" class= "page four">
 						<h2 class="heading">Publications</h2>
 						{%for publication in publications%}
-					    <div class="resume-wrap d-flex ftco-animate">
-					    	<div class="icon d-flex align-items-center justify-content-center">
-					    		<span class="flaticon-ideas"></span>
-					    	</div>
-					    	<div class="text pl-3">
-		    					<span class="date">{{publication.publication_date}}</span>
-		    					<h2>{{publication.publication_title}}</h2>
-		    					<span class="position"><i>{{publication.publication_name}}</i></span>
-		    					<p style="text-align: justify;">{{publication.publication_description}}</p>
-	    					</div>
+						<div class="resume-wrap d-flex ftco-animate">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-ideas"></span>
+							</div>
+							<div class="text pl-3">
+								<span class="date">{{publication.publication_date}}</span>
+								<h2>{{publication.publication_title}}</h2>
+								<span class="position"><i>{{publication.publication_name}}</i></span>
+								<p style="text-align: justify;">{{publication.publication_description}}</p>
+							</div>
 						</div>
 						{%endfor%}
-	    				
+						
 					  </div>
+					  {%endif%}
 
 
 					</div>
 			  </div>
-    	</div>
-    </section>
+		</div>
+	</section>
 <!-- 
 	<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 		<div class="toast-header">
@@ -286,16 +318,16 @@
 	  </div> -->
 	  
  
-
-    <section class="ftco-section ftco-project" id="projects-section">
-    	<div class="container-fluid px-md-0">
-    		<div class="row no-gutters justify-content-center pb-5">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<h1 class="big big-2">Projects</h1>
+ {%if projects%}
+	<section class="ftco-section ftco-project" id="projects-section">
+		<div class="container-fluid px-md-0">
+			<div class="row no-gutters justify-content-center pb-5">
+		  <div class="col-md-12 heading-section text-center ftco-animate">
+		  	<h1 class="big big-2">Projects</h1>
 			  <h2 class="mb-4">My Projects</h2>
-          </div>
-        </div>
-    		<div class="row no-gutters">
+		  </div>
+		</div>
+			<div class="row no-gutters">
 				{% for project in projects %}
 				{%if isAdmin%}
 				<a  href="{%url 'projects'%}#{{project.id}}">
@@ -306,20 +338,20 @@
 				{%endif%}
 					
 				<div class="col-md-4" >
-    				<div action="getInfo" class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({{project.project_image.url}});">
-    					<div class="overlay"></div>
-	    				<div class="text text-center p-4">
+					<div action="getInfo" class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({{project.project_image.url}});">
+						<div class="overlay"></div>
+						<div class="text text-center p-4">
 							<h3>{{project.project_title}}</h3>
-	    					<span>{{project.project_description}}</span>
-	    				</div>
+							<span>{{project.project_description}}</span>
+						</div>
 					</div>
 				</a>
 				  </div>
 				  {%endfor%}
-    		</div>
-    	</div>
-    </section>
-
+			</div>
+		</div>
+	</section>
+{%endif%}
    
 
 
@@ -327,125 +359,131 @@
 
    
 
-    <section class="ftco-section contact-section ftco-no-pb" id="contact-section">
-      <div class="container">
-      	<div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-            <h1 class="big big-2">Contact</h1>
-            <h2 class="mb-4">Contact Me</h2>
-          </div>
-        </div>
+	<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
+	  <div class="container">
+	  	<div class="row justify-content-center mb-5 pb-3">
+		  <div class="col-md-7 heading-section text-center ftco-animate">
+			<h1 class="big big-2">Contact</h1>
+			<h2 class="mb-4">Contact Me</h2>
+		  </div>
+		</div>
 
-        <div class="row d-flex contact-info mb-5">
-         
-          <div class="col-md-6 col-lg-3 d-flex ftco-animate">
-          	<div class="align-self-stretch box text-center p-4 shadow">
-          		<div class="icon d-flex align-items-center justify-content-center">
-          			<span class="icon-paper-plane"></span>
-          		</div>
-          		<div>
-	          		<h3 class="mb-4">Email Address</h3>
-		            <p><a href="mailto:{{user_details.email}}">{{user_details.email}}</a></p>
-		          </div>
-	          </div>
+		<div class="row d-flex contact-info mb-5">
+		 
+		  <div class="col-md-6 col-lg-3 d-flex ftco-animate">
+		  	<div class="align-self-stretch box text-center p-4 shadow">
+		  		<div class="icon d-flex align-items-center justify-content-center">
+		  			<span class="icon-paper-plane"></span>
+		  		</div>
+		  		<div>
+			  		<h3 class="mb-4">Email Address</h3>
+					<p><a href="mailto:{{user_details.email}}">{{user_details.email}}</a></p>
+				  </div>
+			  </div>
 		  </div>
 		  
 		  {%for contact in contactdetails%}
-          <div class="col-md-6 col-lg-3 d-flex ftco-animate">
-          	<div class="align-self-stretch box text-center p-4 shadow">
-          		<div class="icon d-flex align-items-center justify-content-center">
-          			<span class="icon-globe"></span>
-          		</div>
-          		<div>
-	          		<h3 class="mb-4">{{contact.contact_type}}</h3>
-		            <p><a href="{{contact.contact_profile_url}}">Profile</a></p>
-	            </div>
-	          </div>
+		  <div class="col-md-6 col-lg-3 d-flex ftco-animate">
+		  	<div class="align-self-stretch box text-center p-4 shadow">
+		  		<div class="icon d-flex align-items-center justify-content-center">
+		  			<span class="icon-globe"></span>
+		  		</div>
+		  		<div>
+			  		<h3 class="mb-4">{{contact.contact_type}}</h3>
+					<p><a href="{{contact.contact_profile_url}}">Profile</a></p>
+				</div>
+			  </div>
 		  </div>
 		  {%endfor%}
-        </div>
+		</div>
 		
-        <div class="row no-gutters block-9">
-          <div class="col-md-6 order-md-last d-flex">
-            <form action="{%url 'sendemail' username=username%}" method="post" class="bg-light p-4 p-md-5 contact-form">
+		<div class="row no-gutters block-9">
+		  <div class="col-md-6 order-md-last d-flex">
+			<form action="{%url 'sendemail' username=username%}" method="post" class="bg-light p-4 p-md-5 contact-form">
 				{% csrf_token %}
 
-              <div class="form-group">
-                <input type="text" name="person_name" class="form-control" placeholder="Your Name" required>
-              </div>
-              <div class="form-group">
-                <input type="text" name="email" class="form-control" placeholder="Your Email" required>
-              </div>
-              <div class="form-group">
-                <input type="text" name="email_subject" class="form-control" placeholder="Subject" required>
-              </div>
-              <div class="form-group">
-                <textarea  id="" name="message" cols="30" rows="7" class="form-control" placeholder="Message" required></textarea>
-              </div>
-              <div class="form-group">
+			  <div class="form-group">
+				<input type="text" name="person_name" class="form-control" placeholder="Your Name" required>
+			  </div>
+			  <div class="form-group">
+				<input type="text" name="email" class="form-control" placeholder="Your Email" required>
+			  </div>
+			  <div class="form-group">
+				<input type="text" name="email_subject" class="form-control" placeholder="Subject" required>
+			  </div>
+			  <div class="form-group">
+				<textarea  id="" name="message" cols="30" rows="7" class="form-control" placeholder="Message" required></textarea>
+			  </div>
+			  <div class="form-group">
 				<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5" >
-              </div>
-            </form>
-          
-          </div>
+			  </div>
+			</form>
+		  
+		  </div>
 
-          <div class="col-md-6 d-flex">
-          	<div class="img" style="background-image: url({{user_extra_details.user_image.url}});"></div>
-          </div>
-        </div>
-      </div>
-    </section>
+		  <div class="col-md-6 d-flex">
+		  	<div class="img" style="background-image: url({{user_extra_details.user_image.url}});"></div>
+		  </div>
+		</div>
+	  </div>
+	</section>
 		
 
-    <footer class="ftco-footer ftco-section">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">About</h2>
-              <p></p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Links</h2>
-              <ul class="list-unstyled">
-                <li><a href="#home-section"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
+	<footer class="ftco-footer ftco-section">
+	  <div class="container">
+		<div class="row mb-5">
+		  <div class="col-md">
+			<div class="ftco-footer-widget mb-4">
+			  <h2 class="ftco-heading-2">About</h2>
+			  <p></p>
+			  <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+				<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+				<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+				<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+			  </ul>
+			</div>
+		  </div>
+		  <div class="col-md">
+			<div class="ftco-footer-widget mb-4 ml-md-4">
+			  <h2 class="ftco-heading-2">Links</h2>
+			  <ul class="list-unstyled">
+				<li><a href="#home-section"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
 				<li><a href="#about-section"><span class="icon-long-arrow-right mr-2"></span>About</a></li>
+				{%if education  or publications or experiences or skills or awards%}
+
 				<li><a href="#resume-section"><span class="icon-long-arrow-right mr-2"></span>Resume</a></li>
+				{%endif%}
+				{%if projects%}
 				<li><a href="#projects-section"><span class="icon-long-arrow-right mr-2"></span>Projects</a></li>
+				{%endif%}
+
 				<li><a href="#contact-section"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
 				
 				
-              </ul>
-            </div>
-          </div>
-          <!-- <div class="col-md">
-             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Services</h2>
-              <ul class="list-unstyled">
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Design</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Development</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Business Strategy</a></li>
-                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Graphic Design</a></li>
-              </ul>
-            </div>
-          </div> -->
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have Questions?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">{{user_details.email}}</span></a></li>
-	              </ul>
-	            </div>
-            </div>
+			  </ul>
+			</div>
+		  </div>
+		  <!-- <div class="col-md">
+			 <div class="ftco-footer-widget mb-4">
+			  <h2 class="ftco-heading-2">Services</h2>
+			  <ul class="list-unstyled">
+				<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Design</a></li>
+				<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Development</a></li>
+				<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Business Strategy</a></li>
+				<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Graphic Design</a></li>
+			  </ul>
+			</div>
+		  </div> -->
+		  <div class="col-md">
+			<div class="ftco-footer-widget mb-4">
+				<h2 class="ftco-heading-2">Have Questions?</h2>
+				<div class="block-23 mb-3">
+				  <ul>
+					
+					<li><a href="#"><span class="icon icon-envelope"></span><span class="text">{{user_details.email}}</span></a></li>
+				  </ul>
+				</div>
+			</div>
 		  </div>
 		  <div class="col-md">
 			<div class="ftco-footer-widget mb-4">
@@ -457,18 +495,18 @@
 			</div>
 		</div>
 			
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
+		</div>
+		<div class="row">
+		  <div class="col-md-12 text-center">
 			
-            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-          </div>
-        </div>
-      </div>
-    </footer>
-    
+		  </div>
+		</div>
+	  </div>
+	</footer>
+	
   
 
   <!-- loader -->
@@ -488,6 +526,6 @@
   <script src="{% static 'js/jquery.animateNumber.min.js'%}"></script>
   <script src="{% static 'js/scrollax.min.js'%}"></script>
   <script src="{% static 'js/main.js'%}"></script>
-    
+	
   </body>
 </html>
