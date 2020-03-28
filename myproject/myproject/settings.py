@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     # 'portfolio.apps.PortfolioConfig',
+    'accounts.apps.AccountsConfig',
     'travel.apps.TravelConfig',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -2,6 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from users.models import UserExtraDetails,ContactDetails
+from django.shortcuts import get_object_or_404
+from django.utils.crypto import get_random_string
+from .models import UserToken
+
 # Create your views here.
 
 def register(request):
@@ -62,3 +66,38 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return render(request,'logout.html')
+
+
+def passwordResetEmail(request):
+    if request.method=="POST":
+        user=None
+        try:
+            email=request.POST['email']
+            user= get_object_or_404(User, email=email)
+            unique_id = get_random_string(length=20)
+            user_token_object = UserToken.objects.get(user_id=user.id)
+
+            if not user_token_object:
+                user_token_object=UserToken(user=user,access_token=unique_id)
+                user_token_object.save()
+            else:
+                user_token_object.access_token=unique_id
+                user_token_object.save(update_fields=["access_token"]) 
+        except Exception as e:
+            print(e)
+            messages.info(request,"Email not found")
+
+    return render(request,'password-reset.html',{'beforeReset':True})
+
+def passwordResetEmailSent(request):
+    message="We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
+    return render(request,'password-reset-done.html',{'message':message})
+
+
+def passwordReset(request):
+    return render(request,'password-reset.html')
+
+
+def passwordResetDone(request):
+    message=" Your password has been set. You may go ahead and sign in"
+    return render(request,'password-reset-done.html',{'message':message})
