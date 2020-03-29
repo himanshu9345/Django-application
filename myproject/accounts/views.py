@@ -4,7 +4,12 @@ from django.contrib import messages
 from users.models import UserExtraDetails,ContactDetails
 from django.shortcuts import get_object_or_404
 from django.utils.crypto import get_random_string
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 from .models import UserToken
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Create your views here.
 
@@ -59,13 +64,33 @@ def login(request):
             print("usrr not foun2")
             return redirect('login')
     else:
-        print("usrr not foun1")
 
         return render(request,'login.html')
 
 def logout(request):
     auth.logout(request)
     return render(request,'logout.html')
+
+def sendMailSendGrid(to_emails,subject,html_content):
+    # message1 = Mail(
+    #         from_email='faltu9345@gmail.com',
+    #         to_emails=user.email,
+    #         subject=email_subject,
+    #         html_content=to_user)
+    message = Mail(
+        from_email='faltu9345@gmail.com',
+        to_emails=to_emails,
+        subject=subject,
+        html_content=html_content)
+    try:
+        sg = SendGridAPIClient(os.getenv('SEND_GRID_KEY'))
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+        return True
+    except Exception as e:
+        return False
 
 
 def passwordResetEmail(request):
@@ -75,17 +100,33 @@ def passwordResetEmail(request):
             email=request.POST['email']
             user= get_object_or_404(User, email=email)
             unique_id = get_random_string(length=20)
-            user_token_object = UserToken.objects.get(user_id=user.id)
+            user_token_object=None
+            try:
+                user_token_object = UserToken.objects.get(user_id=user.id)
+            except:
+                print("New reset request")
 
             if not user_token_object:
                 user_token_object=UserToken(user=user,access_token=unique_id)
                 user_token_object.save()
             else:
                 user_token_object.access_token=unique_id
-                user_token_object.save(update_fields=["access_token"]) 
+                user_token_object.save(update_fields=["access_token"])
+                auth_url='http://'+os.getenv('IP')+"/accounts/reset/"+ unique_id
+                print(auth_url)
+                to_email=email
+                subject="Password Recovery"
+                html_content="This e-mail is in response to your recent request to recover a forgotten password <br/> <br/> <a target='_blank' href="+auth_url+">Click here to reset your password</a> <br/> If you are having trouble accessing the link, copy and paste the following link address into your browser window: </br></br>"+auth_url
+                if not sendMailSendGrid(to_email,subject,html_content):
+                    message="Please try again later, Email service not working"
+                    return render(request,'password-reset-done.html',{'message':message})
+                
         except Exception as e:
             print(e)
-            messages.info(request,"Email not found")
+            print("Error in passwordResetEmail")
+        message="We've emailed you instructions for setting your password, if an account exists with the email("+email+") you entered. You should receive them shortly."
+        return render(request,'password-reset-done.html',{'message':message})
+
 
     return render(request,'password-reset.html',{'beforeReset':True})
 
@@ -94,10 +135,27 @@ def passwordResetEmailSent(request):
     return render(request,'password-reset-done.html',{'message':message})
 
 
-def passwordReset(request):
-    return render(request,'password-reset.html')
+def passwordReset(request,token):
+    if request.method=='POST':
+        user_token_object=None
+        try:
+            user_token_object = get_object_or_404(UserToken,access_token=token)
+            user=User.objects.get(id=user_token_object.user_id)
+            if request.POST['password1']!=request.POST['password2']:
+                messages.info(request,"Password don't match")
+                return render(request,'password-reset.html',{'beforeReset':False})
+            else:
+                user.set_password(request.POST['password1'])
+                user.save()
+                return redirect('password_reset_done')
+
+        except Exception as e:
+            message="Link Expired"
+            return render(request,'password-reset-done.html',{'message':message})
+
+    return render(request,'password-reset.html',{'beforeReset':False})
 
 
 def passwordResetDone(request):
-    message=" Your password has been set. You may go ahead and sign in"
+    message=" Your password has been set. You may go ahead and login in"
     return render(request,'password-reset-done.html',{'message':message})
