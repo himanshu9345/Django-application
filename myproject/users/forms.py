@@ -50,12 +50,15 @@ class ExperienceForm(ModelForm):
             'start_month_year': DateInput(),
             'end_month_year': DateInput(),
         }
+        labels = {
+            'desc': 'Description (every bullet point add # in the end)',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['company'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_company)'})
         self.fields['position'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_position)'})
-        self.fields['desc'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_desc)'})
+        self.fields['desc'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_desc)','placeholder': 'I increase the ..... output by 40%.# Worked with ....... teams.# Develop XYZ module ...... helped team.# dont forget to add # in the end for every bullet point.'})
         self.fields['start_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_start_month_year)'})
         self.fields['end_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_end_month_year)'})
 

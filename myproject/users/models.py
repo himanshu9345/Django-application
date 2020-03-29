@@ -111,7 +111,7 @@ class Education(models.Model):
         return self.college_end_month_year.strftime("%b")
 
 def convertToCamelCase(word):
-    return ' '.join(x.capitalize() or '_' for x in word.split('_'))
+    return ' '.join(x.capitalize() or ' ' for x in word.split(' '))
 class UserExtraDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image_path = time.strftime('profile/%Y/%m/%d')

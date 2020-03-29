@@ -416,5 +416,7 @@ def showEditableProfile(request):
     # print(user_extra_details,type(user_info))
     user_details_form=UserExtraDetailsForm(initial={'user_interest':user_extra_details.user_interest,'user_address':user_extra_details.user_address,'user_project_completed':user_extra_details.user_project_completed,'user_image':user_extra_details.user_image,'user_resume':user_extra_details.user_resume})
     print(user_details_form)
+    shareable_url='http://'+os.getenv('IP')+"/profile/"+user_info.username
+
     user_info_form=UserForm(initial={'first_name':user_info.first_name,'last_name':user_info.last_name,'username':user_info.username,'email':user_info.email})
-    return render(request,"profile.html",{'user_details_form':user_details_form,'user_info_form':user_info_form})
+    return render(request,"profile.html",{'user_details_form':user_details_form,'user_info_form':user_info_form,'shareable_url':shareable_url})
