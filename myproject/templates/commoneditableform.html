@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{%block content %}
+<base href="/">
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+	<div class="container">
+	  <!-- <a class="navbar-brand" href="index.html"><span>R</span>onaldo</a> -->
+	  <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="oi oi-menu"></span> Menu
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="ftco-nav">
+		<ul class="navbar-nav nav ml-auto">
+
+      {%if model_name == "Education" or model_name == "Experience" or model_name == "ContactDetails" %}
+      <li class="nav-item"><a href="/user/{{type_of_user_detail}}" class="nav-link"><span>{{model_name}}</span></a></li>
+			
+			{%else%}
+      <li class="nav-item"><a href="/user/{{type_of_user_detail}}" class="nav-link"><span>{{model_name}}s</span></a></li>
+			{%endif%}
+			<li class="nav-item"><a href="profile" class="nav-link"><span>Profile</span></a></li>
+		  <li class="nav-item"><a href="/profile/{{request.user}}" class="nav-link"><span>Preview Portfolio</span></a></li>
+      
+		  <li class="nav-item"><a href="accounts/logout" class="nav-link"><span>Logout</span></a></li>   
+		</ul>
+	  </div>
+	</div>
+</nav>
+
+<section class="ftco-section" >
+
+    <div class="container-fluid px-md-5">
+      <div class="row">
+        <div class="col no-gutters justify-content-center pb-2">
+            <div class="col-md-12 heading-section text-center">
+                <h1 class="big big-2">Profile</h1>
+                {%if isEdit%}
+                  <h2 class="mb-4">Edit {{model_name}}</h2>
+
+                {%else%}
+                  <h2 class="mb-4">Add {{model_name}}</h2>
+                {%endif%}
+            </div>
+            <form action="" method="post" enctype="multipart/form-data" class="bg-light p-6 p-md-5 contact-form">
+                {% csrf_token %}
+                {{form_requested.as_p}}
+              <div class="form-group" style="text-align: center;" >
+                <input type="submit" value="Save" class="btn btn-primary py-3 px-5 button-class" style="display: none;" id="save-button">
+              </div> 
+              <div>
+                  {%for message in messages%}
+              <h4> {{message}} </h4>
+              {%endfor%}
+          </div>
+            </form>
+  
+        </div>
+      </div>
+    </div>
+</section>
+
+<script>
+  let anyThingChanged=new Map();
+    
+  function checkDictTrue(map){
+    for (let v of map.values()) {
+      if (v === true) { 
+        return true; 
+      }
+    }  
+    return false;
+
+  }
+function checkInputChanged(id){
+
+  var name = id;
+
+    if (name.value != name.defaultValue){
+        anyThingChanged.set(name.id,true);
+        showButton();
+    }
+    else{
+      anyThingChanged.set(name.id,false);
+
+    }
+    if (checkDictTrue(anyThingChanged)===false){
+      hideButton();
+    }
+   
+    
+}
+
+function showButton(){
+  var x = document.getElementById("save-button");
+  x.style.display = "block";
+
+}
+
+function hideButton(){
+  var x = document.getElementById("save-button");
+  x.style.display = "none";
+
+}
+
+</script>
+
+{% endblock %}

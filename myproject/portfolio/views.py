@@ -11,17 +11,22 @@ from django.contrib import messages
 
 # Create your views here.
 def index(request):
-    exps = Experience.objects.all().order_by('-end_year')
-    skills = Skill.objects.all().order_by('-percentage_you_know')
-    awards = Award.objects.all().order_by('-award_year')
-    publications = Publication.objects.all().order_by('-publication_date')
-    projects = Project.objects.all().order_by('-project_end_year')
-    print(awards)
-    return render(request,"index.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects})
+    print(request.user.id)
+    if request.user.id!=None:
+        exps = Experience.objects.all().filter(user_id=request.user.id).order_by('-end_year')
+        skills = Skill.objects.all().filter(user_id=request.user.id).order_by('-percentage_you_know')
+        awards = Award.objects.all().filter(user_id=request.user.id).order_by('-award_year')
+        publications = Publication.objects.all().filter(user_id=request.user.id).order_by('-publication_date')
+        projects = Project.objects.all().filter(user_id=request.user.id).order_by('-project_end_year')
+        print(awards)
+        return render(request,"index.html",{'exps':exps,'skills':skills,'awards':awards,'publications':publications,'projects':projects})
+    else:
+        return render(request,"index.html")
+        
 
 def projects(request):
     app_url = "/"
-    projects = Project.objects.all().order_by('-project_end_year')
+    projects = Project.objects.all().filter(user_id=request.user.id).order_by('-project_end_year')
 
     print(app_url,"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
     return render(request,"projects.html",{'app_url': app_url,'projects':projects})
@@ -29,7 +34,7 @@ def projects(request):
 def loadsection(request):
     return render(request,"index.html")
         
-def sendemail(request):
+def sendemail(request):#remaining
     if request.method=="POST":
         person_name=request.POST['person_name']
         email=request.POST['email']

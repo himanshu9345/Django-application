@@ -35,7 +35,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'portfolio.apps.PortfolioConfig',
+    'users.apps.UsersConfig',
+    # 'portfolio.apps.PortfolioConfig',
+    'accounts.apps.AccountsConfig',
     'travel.apps.TravelConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,6 +56,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 ROOT_URLCONF = 'myproject.urls'
 
@@ -113,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
 
-
+X_FRAME_OPTIONS = 'DENY'
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -132,16 +138,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR,"static"),
-#     os.path.join(BASE_DIR,"travello_assets")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"static"),
+    
 
-# ]
+]
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT=""
 if DEBUG==True:
-    MEDIA_ROOT = '/home/himanshu/extra/media'
+    MEDIA_ROOT = '/home/himanshu/extra/media/'
 else:
-    MEDIA_ROOT = '/home/ubuntu/extra/media'
+    MEDIA_ROOT = '/home/ubuntu/extra/media/'
