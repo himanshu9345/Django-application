@@ -2,3 +2,5 @@ env
 .env
 myproject/media
 .vscode
+myproject/users/__pycache__/
+myproject/accounts/__pycache__/
