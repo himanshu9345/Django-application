@@ -32,8 +32,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pip install pytest
-        export DJANGO_SETTINGS_MODULE=myproject.settings
-        export DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
-        export 
-        pytest
+        python manage.py test users
