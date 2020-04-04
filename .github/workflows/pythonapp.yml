@@ -48,7 +48,7 @@ jobs:
     - name: Test with pytest
       run: |
         cd myproject
-        # python manage.py makemigrations
-        # python manage.py migrate
+        python manage.py makemigrations
+        python manage.py migrate
         pytest --cov=./
         codecov --token=${{ secrets.CODECOV_TOKEN }}
