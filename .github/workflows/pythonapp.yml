@@ -50,5 +50,5 @@ jobs:
         cd myproject
         python manage.py makemigrations
         python manage.py migrate
-        pytest --cov=./
+        pytest --cov-report=xml --cov=myproject
         codecov --token=${{ secrets.CODECOV_TOKEN }}
