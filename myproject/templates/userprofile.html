@@ -402,7 +402,15 @@
 		  <div class="col-md-6 col-lg-3 d-flex ftco-animate">
 		  	<div class="align-self-stretch box text-center p-4 shadow">
 		  		<div class="icon d-flex align-items-center justify-content-center">
-		  			<span class="icon-globe"></span>
+					<!-- {%if contact.contact_type == 'twitter' or  contact.contact_type == 'Twitter' %}
+					<span class="icon-twitter">
+					{%elif contact.contact_type == "linkedin" or  contact.contact_type == "Linkedin" or contact.contact_type == "LinkedIn" %}
+					<span class="icon-linkedin">
+					{%elif contact.contact_type == "instagram" or  contact.contact_type == "Instagram" %}
+					<span class="icon-instagram">
+					{%else%} -->
+					<!-- {%endif%} -->
+					<span class="icon-{{contact.lowerCase}}">
 		  		</div>
 		  		<div>
 			  		<h3 class="mb-4">{{contact.contact_type}}</h3>
@@ -446,19 +454,30 @@
 		
 
 	<footer class="ftco-footer ftco-section">
-	  <div class="container">
+	  <div class="container" style="justify-content: center;">
 		<div class="row mb-5">
+		{%if contactdetails%}
 		  <div class="col-md">
 			<div class="ftco-footer-widget mb-4">
 			  <h2 class="ftco-heading-2">About</h2>
 			  <p></p>
 			  <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-				<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-				<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-				<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+				{%for contact in contactdetails%}
+				{%if contact.contact_type == 'twitter' or  contact.contact_type == 'Twitter' %}
+				<li class="ftco-animate"><a href="{{contact.contact_profile_url}}"><span class="icon-twitter"></span></a></li>
+				{%elif contact.contact_type == "linkedin" or  contact.contact_type == "Linkedin" or contact.contact_type == "LinkedIn" %}
+				<li class="ftco-animate"><a href="{{contact.contact_profile_url}}"><span class="icon-linkedin"></span></a></li>
+				{%elif contact.contact_type == "instagram" or  contact.contact_type == "Instagram" %}
+				<li class="ftco-animate"><a href="{{contact.contact_profile_url}}"><span class="icon-instagram"></span></a></li>
+				{%else%}
+				<li class="ftco-animate"><a href="{{contact.contact_profile_url}}"><span class="icon-globe"></span></a></li>
+
+				{%endif%}
+				{%endfor%}
 			  </ul>
 			</div>
 		  </div>
+		  {%endif%}
 		  <div class="col-md">
 			<div class="ftco-footer-widget mb-4 ml-md-4">
 			  <h2 class="ftco-heading-2">Links</h2>

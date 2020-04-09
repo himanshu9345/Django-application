@@ -134,4 +134,7 @@ class ContactDetails(models.Model):
     contact_profile_url=models.URLField(default="")
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in ContactDetails._meta.fields if field.name!='user']
+    
+    def lowerCase(self):
+        return self.contact_type.lower()
  
