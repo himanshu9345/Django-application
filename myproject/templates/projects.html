@@ -66,12 +66,21 @@
           <div class="col-lg-8 ftco-animate">
             {%for project in projects%}
             <section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="{{project.id}}">
-              <h2 class="mb-3"><a href="{{project.project_url}}">{{project.project_title}}</a></h2>
+              <h2 class="mb-3">
+                {%if project.project_url%}
+                <a href="{{project.project_url}}">{{project.project_title}}</a>
+                {%else%}
+                <a href style="pointer-events: none;">{{project.project_title}}</a>
+
+                {%endif%}
+              </h2>
               <div >
               {{project.startMonth}}, {{project.project_start_month_year.year}}-{{project.endMonth}}, {{project.project_end_month_year.year}}
               </div><br>
               <p>{{project.project_description}}<p>
+                {%if project.project_image%}
                 <img src="{{project.project_image.url}}" alt="" class="img-fluid">
+                {%endif%}
               </p>
              <br>
             </section>

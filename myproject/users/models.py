@@ -82,7 +82,7 @@ class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project_title = models.CharField(max_length=200)
     project_description = models.TextField()
-    project_url = models.URLField()
+    project_url = models.URLField(default="")
     image_path = time.strftime('pics/%Y/%m/%d')
     project_image = models.ImageField(upload_to=PathAndRename(image_path))
     project_start_month_year = models.DateField()

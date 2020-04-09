@@ -339,7 +339,12 @@
 				{%endif%}
 					
 				<div class="col-md-4" >
+					{%if project.project_image%}
 					<div action="getInfo" class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({{project.project_image.url}});">
+					{%else%}
+					<div action="getInfo" class="project ftco-animate d-flex justify-content-center align-items-center" >
+						
+					{%endif%}
 						<div class="overlay"></div>
 						<div class="text text-center p-4">
 							<h3>{{project.project_title}}</h3>
