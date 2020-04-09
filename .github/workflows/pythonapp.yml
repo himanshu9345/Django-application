@@ -52,3 +52,7 @@ jobs:
         # python manage.py migrate
         pytest --cov-report=xml --cov=./
         codecov --token=${{ secrets.CODECOV_TOKEN }}
+    - name: Automatic Merge
+      uses: lots0logs/gh-action-auto-merge@1.0.0
+      run: /merge $master
+
