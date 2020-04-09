@@ -93,6 +93,7 @@ def editableCategory(request,category,category_id):
     if category in category_name_model_form_dict:
         to_edit=False
         current_user_id=request.user.id
+        print(request.user.id)
         user_category_form=category_name_model_form_dict[category][4]
         user_category_data=None
         if request.method=='POST':

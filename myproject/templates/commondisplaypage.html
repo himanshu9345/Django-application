@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
+
 {% load static %}
+{%block title%}
+{%if model_name == "Education" or model_name == "Experience" or model_name == "ContactDetails"%}
+{{user.first_name}} {{model_name}}
+{%else%}
+{{user.first_name}} {{model_name}}s
+{%endif%}
+{% endblock %}
 
 
 {%block content %}
