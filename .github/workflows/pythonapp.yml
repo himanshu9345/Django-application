@@ -27,7 +27,6 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
     steps:
     - uses: actions/checkout@v2
-    - uses: lots0logs/gh-action-auto-merge@1.0.0
     - name: Set up Python 3.6
       uses: actions/setup-python@v1
 
