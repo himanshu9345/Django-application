@@ -115,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-EMAIL_BACKEND = 'django_ses.SESBackend'
+
 
 X_FRAME_OPTIONS = 'DENY'
 # Internationalization

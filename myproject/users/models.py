@@ -82,7 +82,7 @@ class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project_title = models.CharField(max_length=200)
     project_description = models.TextField()
-    project_url = models.URLField()
+    project_url = models.URLField(default="")
     image_path = time.strftime('pics/%Y/%m/%d')
     project_image = models.ImageField(upload_to=PathAndRename(image_path))
     project_start_month_year = models.DateField()
@@ -129,9 +129,12 @@ class UserExtraDetails(models.Model):
         return json.dumps([convertToCamelCase(word)+"." for word in self.user_interest.split(",")])
 
 class ContactDetails(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     contact_type=models.CharField(max_length=20)
     contact_profile_url=models.URLField(default="")
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in ContactDetails._meta.fields if field.name!='user']
+    
+    def lowerCase(self):
+        return self.contact_type.lower()
  

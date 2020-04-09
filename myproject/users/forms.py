@@ -139,6 +139,9 @@ class ProjectForm(ModelForm):
         self.fields['project_title'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_title)'})
         self.fields['project_description'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_description)'})
         self.fields['project_url'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_url)'})
+        self.fields['project_url'].required = False
+        self.fields['project_image'].required = False
+
         self.fields['project_image'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_image)'})
         self.fields['project_start_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_start_month_year)'})
         self.fields['project_end_month_year'].widget.attrs.update({'class': 'form-control','oninput':'checkInputChanged(id_project_end_month_year)'})
