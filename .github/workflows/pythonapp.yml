@@ -27,8 +27,10 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
     steps:
     - uses: actions/checkout@v2
+    - uses: lots0logs/gh-action-auto-merge@1.0.0
     - name: Set up Python 3.6
       uses: actions/setup-python@v1
+
       with:
         python-version: 3.6
     - name: Make .env file
@@ -53,6 +55,5 @@ jobs:
         pytest --cov-report=xml --cov=./
         codecov --token=${{ secrets.CODECOV_TOKEN }}
     - name: Automatic Merge
-      uses: lots0logs/gh-action-auto-merge@1.0.0
       run: /merge $master
 
