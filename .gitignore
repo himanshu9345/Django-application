@@ -1,9 +1,9 @@
 env
 .env
-myproject/media
+portfolioapp/media
 .vscode
-myproject/users/__pycache__/
-myproject/accounts/__pycache__/
+portfolioapp/users/__pycache__/
+portfolioapp/accounts/__pycache__/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
