@@ -43,7 +43,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 ]
+"""This will tell boto that when it uploads files to S3, it should set properties on them so that when S3 serves them, 
+it'll include some HTTP headers in the response. Those HTTP headers, 
+in turn, will tell browsers that they can cache these files for a very long time."""
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'CacheControl': 'max-age=94608000',
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -134,13 +144,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,"static"),
-    
-
-]
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
 MEDIA_URL = '/media/'
@@ -149,3 +153,31 @@ if DEBUG==True:
     MEDIA_ROOT = '/home/himanshu/extra/media/'
 else:
     MEDIA_ROOT = '/home/ubuntu/extra/media/'
+
+STATICFILES_DIRS = [
+        "static",
+    ]
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
+
+
+if os.getenv('USE_S3')=='True':
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')  # e.g. us-east-2
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    # Tell django-storages the domain to use to refer to static files.
+    AWS_S3_CUSTOM_DOMAIN = os.getenv('AWS_S3_CUSTOM_DOMAIN')
+    # Tell the staticfiles app to use S3Boto3 storage when writing the collected static files (when
+    # you run `collectstatic`).    
+    #s3 setting
+    MEDIAFILES_STORAGE = 'custom_storages.MediaStorage'
+
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    STATIC_ROOT='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+    MEDIA_URL='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
+    # STATIC_ROOT=STATIC_URL
+
+
+

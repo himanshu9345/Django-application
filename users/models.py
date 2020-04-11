@@ -9,6 +9,8 @@ import uuid
 from django.utils.deconstruct import deconstructible
 from django.contrib.auth.models import User
 import json
+from portfolioapp import custom_storages
+from django.core.files.storage import Storage,FileSystemStorage
 # Create your models here.
 
 @deconstructible
@@ -29,6 +31,7 @@ class PathAndRename(object):
 
         # eg: 'images/2017/01/29/my-uploaded-file_64c942aa64.jpg'
         return os.path.join(self.path, renamed_filename)
+
 
 class Experience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -85,10 +88,13 @@ class Project(models.Model):
     project_url = models.URLField(default="")
     image_path = time.strftime('pics/%Y/%m/%d')
     project_image = models.ImageField(upload_to=PathAndRename(image_path))
+    if os.getenv('USE_S3')=='True':
+        project_image = models.ImageField(upload_to=PathAndRename(image_path),storage=custom_storages.MediaStorage())
+
     project_start_month_year = models.DateField()
     project_end_month_year =models.DateField()
     def get_fields(self):
-        return [(field.name, field.value_to_string(self)) for field in Project._meta.fields if field.name!='user']
+        return [(field.name, field.value_to_string(self),field.value_from_object(self)) for field in Project._meta.fields if field.name!='user']
     def startMonth(self):
         return self.project_start_month_year.strftime("%b")
     
@@ -116,10 +122,16 @@ class UserExtraDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image_path = time.strftime('profile/%Y/%m/%d')
     user_image = models.ImageField(upload_to=PathAndRename(image_path),default="default.png")
+    if os.getenv('USE_S3')=='True':
+        user_image = models.ImageField(upload_to=PathAndRename(image_path),storage=custom_storages.MediaStorage(),default="default.png")
     user_interest = models.CharField(max_length=400,default="")
     user_address = models.CharField(max_length=200,default="")
     image_path = time.strftime('files/%Y/%m/%d')
+
     user_resume = models.FileField(upload_to=PathAndRename(image_path),default="resume.pdf")
+    if os.getenv('USE_S3')=='True':
+        user_resume = models.FileField(upload_to=PathAndRename(image_path),storage=custom_storages.MediaStorage(),default="resume.pdf")
+
     user_project_completed = models.IntegerField(default=0)
     
     def get_fields(self):
