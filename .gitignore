@@ -4,3 +4,8 @@ myproject/media
 .vscode
 myproject/users/__pycache__/
 myproject/accounts/__pycache__/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
