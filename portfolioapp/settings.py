@@ -145,8 +145,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR,"static"),
+    ]
+STATIC_ROOT = os.path.join(BASE_DIR,'assets')
+print(STATIC_ROOT)
 MEDIA_URL = '/media/'
 MEDIA_ROOT=""
 if DEBUG==True:
@@ -154,14 +158,12 @@ if DEBUG==True:
 else:
     MEDIA_ROOT = '/home/ubuntu/extra/media/'
 
-STATICFILES_DIRS = [
-        "static",
-    ]
 MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
 
 
 if os.getenv('USE_S3')=='True':
+    print("Using S3")
     AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')  # e.g. us-east-2
     AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
@@ -175,7 +177,7 @@ if os.getenv('USE_S3')=='True':
 
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
     STATIC_ROOT='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
-    MEDIA_URL='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+    MEDIA_ROOT='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
     # STATIC_ROOT=STATIC_URL
 

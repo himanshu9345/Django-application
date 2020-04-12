@@ -11,7 +11,7 @@
 
 
 {%block content %}
-<!-- <base href="/"> -->
+<base href="/">
 
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
@@ -60,7 +60,7 @@
 			<tr>
 				{%for name,value,obj in details.get_fields%}
 				{%if  "image" in name %}
-				<td style="text-align: center;"><a href="{{obj}}"  target="_blank">Image</a></td>
+				<td style="text-align: center;"><a href="{{obj.url}}"  target="_blank">Image</a></td>
 
 				{%elif "url" in name %}
 				<td style="text-align: center;"><a href="{{value}}" target="_blank">Url</a></td>

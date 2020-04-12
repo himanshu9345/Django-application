@@ -9,7 +9,8 @@ import uuid
 from django.utils.deconstruct import deconstructible
 from django.contrib.auth.models import User
 import json
-from portfolioapp import custom_storages
+
+# from portfolioapp import custom_storages
 from django.core.files.storage import Storage,FileSystemStorage
 # Create your models here.
 
