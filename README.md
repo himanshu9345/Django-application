@@ -3,7 +3,7 @@ Learning Django
 
 [![codecov](https://codecov.io/gh/himanshu9345/Django-application/branch/master_with_testcases/graph/badge.svg)](https://codecov.io/gh/himanshu9345/Django-application)
 
-[![Latest Code](https://github.com/himanshu9345/Django-application/workflows/Python%20application/badge.svg?branch=master_with_testcases)](https://github.com/himanshu9345/Django-application/actions?query=workflow%3A%22Python+application%22)
+![Code Integration](https://github.com/himanshu9345/Django-application/workflows/Code%20Integration/badge.svg)
 
 
 Created a User Portfolio builder website using Django from the ground up using prebuild HTML and CSS template. 
