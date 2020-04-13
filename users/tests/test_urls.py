@@ -36,6 +36,6 @@ class TestUrls(SimpleTestCase):
         url=reverse('editablecategory', args={'category':"experience",'category_id':'1'})
         self.assertEqual(resolve(url).func,editableCategory)
     
-    def test_category_url_is_resolved(self):
-        url=reverse('category', args={'category':"experience"})
-        self.assertEqual(resolve(url).func,showCategory)
+    # def test_category_url_is_resolved(self):
+    #     url=reverse('category', args={'category':"experience"})
+    #     self.assertEqual(resolve(url).func,showCategory)
