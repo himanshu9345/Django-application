@@ -11,7 +11,6 @@ urlpatterns = [
     path('password-reset/', views.passwordResetEmail, name='password_reset_email'),
     path('password-reset/done/', views.passwordResetEmailSent, name='password_reset_email_done'),
     path('reset/done/', views.passwordResetDone, name='password_reset_done'),
-
     path('reset/<str:token>/', views.passwordReset, name='password_reset'),
 
 ]
