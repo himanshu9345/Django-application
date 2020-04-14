@@ -48,7 +48,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        python manage.py makemigrations
-        python manage.py migrate
-        pytest --cov-report=xml --cov=users --cov=accounts --cov=portfolioapp --cov=manage.py --cov=custom_storages.py
+        # python manage.py makemigrations
+        # python manage.py migrate
+        pytest
         codecov --token=${{ secrets.CODECOV_TOKEN }}
