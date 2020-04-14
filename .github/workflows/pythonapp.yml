@@ -1,11 +1,11 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Code Integration
+name: Python application
 
 on:
-  pull_request:
-    branches: [master]
+  push:
+    branches: [ master_with_testcases_eb ]
 
 
 jobs:
@@ -52,3 +52,8 @@ jobs:
         # python manage.py migrate
         pytest
         codecov --token=${{ secrets.CODECOV_TOKEN }}
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v1
+      with:
+        name: code-coverage-report
+        path: coverage.xml
