@@ -50,5 +50,5 @@ jobs:
       run: |
         # python manage.py makemigrations
         # python manage.py migrate
-        pytest --cov-report=xml --cov=users --cov=accounts --cov=portfolioapp --cov=manage.py --cov=custom_storages.py
+        pytest
         codecov --token=${{ secrets.CODECOV_TOKEN }}
