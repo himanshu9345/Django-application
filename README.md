@@ -1,7 +1,7 @@
 # Django-application
 Learning Django
 
-[![codecov](https://codecov.io/gh/himanshu9345/Django-application/branch/master_with_testcases/graph/badge.svg)](https://codecov.io/gh/himanshu9345/Django-application)
+[![codecov](https://codecov.io/gh/himanshu9345/Django-application/branch/master/graph/badge.svg)](https://codecov.io/gh/himanshu9345/Django-application)
 
 ![Code Integration](https://github.com/himanshu9345/Django-application/workflows/Code%20Integration/badge.svg)
 
