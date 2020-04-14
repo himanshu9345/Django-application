@@ -58,9 +58,9 @@
 		<tbody>
 			{%for details in user_forms%}
 			<tr>
-				{%for name,value,obj in details.get_fields%}
+				{%for name,value in details.get_fields%}
 				{%if  "image" in name %}
-				<td style="text-align: center;"><a href="{{obj.url}}"  target="_blank">Image</a></td>
+				<td style="text-align: center;"><a href="{{value.url}}"  target="_blank">Image</a></td>
 
 				{%elif "url" in name %}
 				<td style="text-align: center;"><a href="{{value}}" target="_blank">Url</a></td>
