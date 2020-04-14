@@ -95,7 +95,7 @@ class Project(models.Model):
     project_start_month_year = models.DateField()
     project_end_month_year =models.DateField()
     def get_fields(self):
-        return [(field.name, field.value_to_string(self),field.value_from_object(self)) for field in Project._meta.fields if field.name!='user']
+        return [(field.name, field.value_from_object(self)) for field in Project._meta.fields if field.name!='user']
     def startMonth(self):
         return self.project_start_month_year.strftime("%b")
     
@@ -150,4 +150,5 @@ class ContactDetails(models.Model):
     
     def lowerCase(self):
         return self.contact_type.lower()
+        
  

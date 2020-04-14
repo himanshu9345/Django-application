@@ -144,6 +144,7 @@ def showCategory(request,category):
         user_awards=category_name_model_form_dict[category][0].objects.filter(user_id=current_user_id)
         print(user_awards)
         fieldlist=[convertToCamelCase(f.name)  for f in category_name_model_form_dict[category][0]._meta.get_fields() if f.name!='user']
+        print(fieldlist,"ggg")
         return render(request,"commondisplaypage.html",{'fieldlist':fieldlist,'user_forms':user_awards,'type_of_user_detail':category_name_model_form_dict[category][3],'model_name':category_name_model_form_dict[category][2]})
     else:
         raise Http404("Page not found")
