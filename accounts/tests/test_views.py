@@ -10,8 +10,8 @@ class TestView(TestCase):
         self.index_url=reverse('login')
     
     def test_login_GET(self):
-        print(self.index_url)
+        # print(self.index_url)
         response = self.client.get(self.index_url)
-        print(response)
+        # print(response)
         self.assertEqual(response.status_code,200)
 
