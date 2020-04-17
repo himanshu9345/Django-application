@@ -90,6 +90,7 @@ def convertToCamelCase(word):
 
 @login_required
 def editableCategory(request,category,category_id):
+    print("in view editableCategory",category,category_id)
     if category in category_name_model_form_dict:
         to_edit=False
         current_user_id=request.user.id
@@ -246,7 +247,7 @@ def showEditableProfile(request):
         messages.info(request,"Information Updated")
 
 
-    print('GET')
+    print('profile GET')
     current_user_id=request.user.id
     # print(type(current_user_id))
     user_extra_details=UserExtraDetails.objects.get(user_id=current_user_id)
@@ -254,7 +255,7 @@ def showEditableProfile(request):
 
     # print(user_extra_details,type(user_info))
     user_details_form=UserExtraDetailsForm(initial={'user_interest':user_extra_details.user_interest,'user_address':user_extra_details.user_address,'user_project_completed':user_extra_details.user_project_completed,'user_image':user_extra_details.user_image,'user_resume':user_extra_details.user_resume})
-    print(user_details_form)
+    # print(user_details_form)
     shareable_url='http://'+os.getenv('IP')+"/profile/"+user_info.username
 
     user_info_form=UserForm(initial={'first_name':user_info.first_name,'last_name':user_info.last_name,'username':user_info.username,'email':user_info.email})
