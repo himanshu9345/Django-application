@@ -74,7 +74,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code,404)
     
     def test_editableCategory_GET(self):
-        response = self.loggedInClient.get(reverse('editablecategory', args={"experience","new"}))
+        response = self.loggedInClient.get(reverse('editablecategory', kwargs={'category':"experience",'category_id':"new"}))
         self.assertEqual(response.status_code,200)
     
     # def test_editableCategory_oldObject_GET(self):
