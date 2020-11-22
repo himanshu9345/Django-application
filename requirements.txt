@@ -3,7 +3,6 @@ angles==1.9.12
 asgiref==3.2.3
 astroid==2.3.3
 attrs==19.3.0
-awsebcli==3.17.1
 azure-common==1.1.26
 azure-storage-blob==2.1.0
 azure-storage-common==2.1.0
@@ -71,7 +70,6 @@ packaging==20.3
 paramiko==2.7.1
 pathspec==0.5.9
 Pillow==7.0.0
-pkg-resources==0.0.0
 pluggy==0.13.1
 psycopg2==2.8.4
 py==1.8.1

@@ -16,3 +16,4 @@ htmlcov
 !.elasticbeanstalk/*.global.yml
 
 https:/*
+djangoenv/*
