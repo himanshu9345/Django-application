@@ -66,3 +66,6 @@ wcwidth==0.1.8
 websocket-client==0.57.0
 wrapt==1.11.2
 zipp==3.1.0
+azure-common==1.1.26
+azure-storage-blob==2.1.0
+azure-storage-common==2.1.0

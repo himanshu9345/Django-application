@@ -10,6 +10,7 @@ class TestView(TestCase):
     def setUp(self):
         self.client=Client()
         self.user = User.objects.create_user(username="test",email="test@email.com",password="password1",first_name="Test",last_name="User")
+        self.experienceObject = Experience.objects.create(company="XYZ",position="ABC",desc="I am working on",end_month_year="2020-03-04",start_month_year="2020-03-04",user_id=self.user.id)
         self.userdetails = UserExtraDetails(user_id=self.user.id).save()
         self.loggedInClient=Client()
         self.loggedInClient.login(username=self.user.username,password="password1")
@@ -77,6 +78,11 @@ class TestView(TestCase):
         response = self.loggedInClient.get(reverse('editablecategory', kwargs={'category':"experience",'category_id':"new"}))
         self.assertEqual(response.status_code,200)
     
-    # def test_editableCategory_oldObject_GET(self):
-    #     response = self.loggedInClient.get(reverse('editablecategory', args={"experience","new"}))
+    def test_editableCategory_oldObject_GET(self):
+        response = self.loggedInClient.get(reverse('editablecategory', kwargs={'category':"experience",'category_id':str(self.experienceObject.id)}))
+        self.assertEqual(response.status_code,200)
+    
+    # def test_editableCategory_createObject_POST(self):
+    #     print(str(self.experienceObject.id))
+    #     response = self.loggedInClient.post(reverse('editablecategory',kwargs={'category':"experience",'category_id':str(self.experienceObject.id)}))
     #     self.assertEqual(response.status_code,200)

@@ -49,10 +49,6 @@ INSTALLED_APPS = [
 it'll include some HTTP headers in the response. Those HTTP headers, 
 in turn, will tell browsers that they can cache these files for a very long time."""
 
-AWS_S3_OBJECT_PARAMETERS = {
-    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
-    'CacheControl': 'max-age=94608000',
-}
 
 
 MIDDLEWARE = [
@@ -158,28 +154,27 @@ if DEBUG==True:
 else:
     MEDIA_ROOT = '/home/ubuntu/extra/media/'
 
+
+
+
+
 MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
+AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
 
-
-if os.getenv('USE_S3')=='True':
-    print("Using S3")
-    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')  # e.g. us-east-2
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    # Tell django-storages the domain to use to refer to static files.
-    AWS_S3_CUSTOM_DOMAIN = os.getenv('AWS_S3_CUSTOM_DOMAIN')
-    # Tell the staticfiles app to use S3Boto3 storage when writing the collected static files (when
-    # you run `collectstatic`).    
-    #s3 setting
+if os.getenv('AZURE')=='True':
+    print("Using Azure")
+    MEDIAFILES_LOCATION = 'sitedata/media'
+    STATICFILES_LOCATION = 'sitedata/static'
+    AZURE_ACCOUNT_NAME = "buildmyportfolio"
+    AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+    
     MEDIAFILES_STORAGE = 'custom_storages.MediaStorage'
 
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-    STATIC_ROOT='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
-    MEDIA_ROOT='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
-
-    # STATIC_ROOT=STATIC_URL
+    
+    STATIC_ROOT=f'https://{AZURE_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_ROOT=f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 
 

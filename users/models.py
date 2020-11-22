@@ -89,7 +89,7 @@ class Project(models.Model):
     project_url = models.URLField(default="")
     image_path = time.strftime('pics/%Y/%m/%d')
     project_image = models.ImageField(upload_to=PathAndRename(image_path))
-    if os.getenv('USE_S3')=='True':
+    if os.getenv('AZURE')=='True':
         project_image = models.ImageField(upload_to=PathAndRename(image_path),storage=custom_storages.MediaStorage())
 
     project_start_month_year = models.DateField()
@@ -123,14 +123,14 @@ class UserExtraDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image_path = time.strftime('profile/%Y/%m/%d')
     user_image = models.ImageField(upload_to=PathAndRename(image_path),default="default.png")
-    if os.getenv('USE_S3')=='True':
+    if os.getenv('AZURE')=='True':
         user_image = models.ImageField(upload_to=PathAndRename(image_path),storage=custom_storages.MediaStorage(),default="default.png")
     user_interest = models.CharField(max_length=400,default="")
     user_address = models.CharField(max_length=200,default="")
     image_path = time.strftime('files/%Y/%m/%d')
 
     user_resume = models.FileField(upload_to=PathAndRename(image_path),default="resume.pdf")
-    if os.getenv('USE_S3')=='True':
+    if os.getenv('AZURE')=='True':
         user_resume = models.FileField(upload_to=PathAndRename(image_path),storage=custom_storages.MediaStorage(),default="resume.pdf")
 
     user_project_completed = models.IntegerField(default=0)
