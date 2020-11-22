@@ -7,8 +7,12 @@ accounts/tests/__pycache__/*
 accounts/__pycache__/*
 portfolioapp/__pycache__/*
 .coverage
+coverage.xml
+
 htmlcov
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+https:/*
