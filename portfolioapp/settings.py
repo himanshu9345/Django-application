@@ -160,7 +160,7 @@ else:
 
 MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
-
+AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
 
 if os.getenv('AZURE')=='True':
     print("Using Azure")
@@ -172,7 +172,7 @@ if os.getenv('AZURE')=='True':
     MEDIAFILES_STORAGE = 'custom_storages.MediaStorage'
 
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-    AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+    
     STATIC_ROOT=f'https://{AZURE_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_ROOT=f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
